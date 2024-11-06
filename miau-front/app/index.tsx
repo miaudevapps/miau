@@ -11,6 +11,7 @@ export default function Index() {
       }}
     >
       <Link href="/home">Ver Home</Link>
+      <Link href="/login">Ver Login</Link>
     </View>
   );
 }
