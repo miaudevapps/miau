@@ -7,7 +7,6 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 
 
-
 export default function RootLayout() {
 
   const [fontsLoaded] = useFonts({
@@ -29,6 +28,7 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="index" />
             <Stack.Screen name="home" options={{ headerShown: false }} />
+            <Stack.Screen name="login" options={{ headerShown: false }} />
           </Stack>
         </ApplicationProvider>
       </SafeAreaProvider>
