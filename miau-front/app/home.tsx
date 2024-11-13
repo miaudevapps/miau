@@ -1,4 +1,5 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
+import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
@@ -26,7 +27,9 @@ export default function HomeScreen() {
 						<Text style={styles.buttonText}>CADASTRAR ANIMAL</Text>
 					)}
 				</Button>
-				<Text style={styles.loginButton}>login</Text>
+				<Link style={styles.loginButton} href={"/login"}>
+					login
+				</Link>
 				<Image
 					source={require("../assets/images/logo_colorida.png")}
 					style={styles.logo}

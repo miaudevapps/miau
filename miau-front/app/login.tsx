@@ -34,7 +34,8 @@ export default function Login() {
 						source={require("../assets/images/facebook.png")}
 						style={styles.logo}
 					/>
-				)}>
+				)}
+			>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O FACEBOOK</Text>
 				)}
@@ -46,7 +47,8 @@ export default function Login() {
 						source={require("../assets/images/google.png")}
 						style={styles.logo}
 					/>
-				)}>
+				)}
+			>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O GOOGLE</Text>
 				)}
@@ -124,4 +126,5 @@ const styles = StyleSheet.create({
 		height: 14,
 		marginRight: 12,
 	},
+	checkIcon: {},
 });

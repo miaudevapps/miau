@@ -25,7 +25,7 @@ export const TopNav = (pageName: string): React.ReactElement => (
 
 const styles = StyleSheet.create({
 	topNav: {
-		width: 360,
+		width: "100%",
 		height: 56,
 		backgroundColor: "#cfe9e5",
 	},

@@ -24,7 +24,7 @@ export default function RootLayout() {
 	return (
 		<>
 			<SafeAreaProvider>
-				<StatusBar barStyle="dark-content" />
+				<StatusBar barStyle="dark-content" backgroundColor={"#88c9bf"} />
 				<SafeAreaView />
 				<IconRegistry icons={EvaIconsPack} />
 				<ApplicationProvider {...eva} theme={eva.light}>
