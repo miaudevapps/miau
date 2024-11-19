@@ -12,6 +12,8 @@ export default function Index() {
     >
       <Link href="/home">Ver Home</Link>
       <Link href="/login">Ver Login</Link>
+      <Link href="/cadastro">Ver Cadastro</Link>
+      <Link href="/cadastropessoal">Ver Cadastro Pessoal</Link>
     </View>
   );
 }
