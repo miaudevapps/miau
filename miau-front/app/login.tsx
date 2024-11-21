@@ -10,12 +10,15 @@ export default function Login() {
 	const [isFocused, setIsFocused] = useState(false); // Estado para foco no campo
 
 	async function handleLogin() {
-		try {
-			const user = await login(email, password); // Chamada da função Firebase
-			Alert.alert("Login bem-sucedido", `Bem-vindo, ${user.email}!`);
-		} catch (error: any) {
-			Alert.alert("Erro no Login", error.message); // Mostra o erro
-		}
+		const user = await login(email, password)
+			.then(() => {
+				Alert.alert("Login bem-sucedido");
+				console.log(user);
+			})
+			.catch((error) => {
+				Alert.alert("Erro no Login"); // Mostra o erro
+				console.log(error);
+			});
 	}
 
 	return (
@@ -50,8 +53,7 @@ export default function Login() {
 						source={require("../assets/images/facebook.png")}
 						style={styles.logo}
 					/>
-				)}
-			>
+				)}>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O FACEBOOK</Text>
 				)}
@@ -63,8 +65,7 @@ export default function Login() {
 						source={require("../assets/images/google.png")}
 						style={styles.logo}
 					/>
-				)}
-			>
+				)}>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O GOOGLE</Text>
 				)}
