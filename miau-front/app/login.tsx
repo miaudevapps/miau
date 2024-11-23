@@ -2,21 +2,32 @@ import { Layout, Text, Button, Input } from "@ui-kitten/components";
 import { Image, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 import { TopNav } from "../components/navigation/TopNavegation";
-import { login } from "../services/auth";
+import { useSession } from "../services/auth";
+import React from "react";
 
 export default function Login() {
-	const [email, setEmail] = useState(""); // Estado para o email
-	const [password, setPassword] = useState(""); // Estado para a senha
 	const [isFocused, setIsFocused] = useState(false); // Estado para foco no campo
 
-	async function handleLogin() {
+	const [formState, setFormState] = React.useState({
+		email: "",
+		password: "",
+	});
+	const { signIn, isLoading } = useSession();
+
+	const handleFormChange = (key: string, value: string) => {
+		setFormState({
+			...formState,
+			[key]: value,
+		});
+	};
+
+	const handleLogin = async () => {
 		try {
-			const user = await login(email, password); // Chamada da função Firebase
-			Alert.alert("Login bem-sucedido", `Bem-vindo, ${user.email}!`);
-		} catch (error: any) {
-			Alert.alert("Erro no Login", error.message); // Mostra o erro
+			await signIn(formState.email, formState.password);
+		} catch (error) {
+			console.error("Erro de login", error);
 		}
-	}
+	};
 
 	return (
 		<Layout style={{ flex: 1, alignItems: "center" }}>
@@ -27,8 +38,8 @@ export default function Login() {
 					style={[styles.input, isFocused && styles.inputFocused]}
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setIsFocused(false)}
-					value={email}
-					onChangeText={setEmail}
+					onChangeText={(value) => handleFormChange("email", value)}
+					value={formState.email}
 				/>
 				<Input
 					placeholder="Senha"
@@ -36,11 +47,15 @@ export default function Login() {
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setIsFocused(false)}
 					secureTextEntry={true}
-					value={password}
-					onChangeText={setPassword}
+					onChangeText={(value) => handleFormChange("password", value)}
+					value={formState.password}
 				/>
 			</Layout>
-			<Button style={styles.button} onPress={handleLogin}>
+			<Button
+				style={styles.button}
+				onPress={() => {
+					handleLogin();
+				}}>
 				{(evaProps) => <Text style={styles.buttonText}>ENTRAR</Text>}
 			</Button>
 			<Button
@@ -50,8 +65,7 @@ export default function Login() {
 						source={require("../assets/images/facebook.png")}
 						style={styles.logo}
 					/>
-				)}
-			>
+				)}>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O FACEBOOK</Text>
 				)}
@@ -63,8 +77,7 @@ export default function Login() {
 						source={require("../assets/images/google.png")}
 						style={styles.logo}
 					/>
-				)}
-			>
+				)}>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O GOOGLE</Text>
 				)}
