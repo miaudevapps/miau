@@ -34,6 +34,11 @@ export default function RootLayout() {
 							<Stack.Screen name="index" />
 							<Stack.Screen name="home" options={{ headerShown: false }} />
 							<Stack.Screen name="login" options={{ headerShown: false }} />
+							<Stack.Screen name="cadastro" options={{ headerShown: false }} />
+							<Stack.Screen
+								name="cadastropessoal"
+								options={{ headerShown: false }}
+							/>
 						</Stack>
 					</ApplicationProvider>
 				</SafeAreaProvider>
