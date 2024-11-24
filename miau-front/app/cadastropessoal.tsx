@@ -1,8 +1,31 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
+import { useSession } from "../services/auth";
+import React from "react";
 
 export default function CadastroPessoal() {
+	const [formState, setFormState] = React.useState({
+		email: "",
+		password: "",
+	});
+	const { signUp, isLoading } = useSession();
+
+	const handleFormChange = (key: string, value: string) => {
+		setFormState({
+			...formState,
+			[key]: value,
+		});
+	};
+
+	const handleSignUp = async () => {
+		try {
+			await signUp(formState.email, formState.password);
+		} catch (error) {
+			console.error("Erro ao criar usuário", error);
+		}
+	};
+
 	return (
 		<Layout style={{ flex: 1 }}>
 			{TopNav("Cadastro")}
@@ -28,7 +51,11 @@ export default function CadastroPessoal() {
 						<TextInput style={styles.inputField} placeholder="Idade" />
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="E-mail" />
+						<TextInput
+							style={styles.inputField}
+							placeholder="E-mail"
+							onChangeText={(value) => handleFormChange("email", value)}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
 						<TextInput style={styles.inputField} placeholder="Estado" />
@@ -52,7 +79,11 @@ export default function CadastroPessoal() {
 						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Senha" />
+						<TextInput
+							style={styles.inputField}
+							placeholder="Senha"
+							onChangeText={(value) => handleFormChange("password", value)}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
 						<TextInput
@@ -66,7 +97,11 @@ export default function CadastroPessoal() {
 					<Layout style={styles.photoBox}>
 						{/* Aqui você pode colocar o código para upload de foto */}
 					</Layout>
-					<Button style={styles.button}>
+					<Button
+						style={styles.button}
+						onPress={() => {
+							handleSignUp();
+						}}>
 						{(evaProps) => (
 							<Text style={styles.buttonText}>FAZER CADASTRO</Text>
 						)}
