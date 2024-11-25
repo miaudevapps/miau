@@ -11,6 +11,7 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "react-native";
 import { SessionProvider } from "@/services/auth";
+import { NavigationContainer } from "@react-navigation/native";
 
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
@@ -24,25 +25,30 @@ export default function RootLayout() {
 
 	return (
 		<>
-			<SessionProvider>
-				<SafeAreaProvider>
-					<StatusBar barStyle="dark-content" backgroundColor={"#88c9bf"} />
-					<SafeAreaView />
-					<IconRegistry icons={EvaIconsPack} />
-					<ApplicationProvider {...eva} theme={eva.light}>
-						<Stack>
-							<Stack.Screen name="index" />
-							<Stack.Screen name="home" options={{ headerShown: false }} />
-							<Stack.Screen name="login" options={{ headerShown: false }} />
-							<Stack.Screen name="cadastro" options={{ headerShown: false }} />
-							<Stack.Screen
-								name="cadastropessoal"
-								options={{ headerShown: false }}
-							/>
-						</Stack>
-					</ApplicationProvider>
-				</SafeAreaProvider>
-			</SessionProvider>
+			<NavigationContainer>
+				<SessionProvider>
+					<SafeAreaProvider>
+						<StatusBar barStyle="dark-content" backgroundColor={"#88c9bf"} />
+						<SafeAreaView />
+						<IconRegistry icons={EvaIconsPack} />
+						<ApplicationProvider {...eva} theme={eva.light}>
+							<Stack>
+								<Stack.Screen name="index" />
+								<Stack.Screen name="home" options={{ headerShown: false }} />
+								<Stack.Screen name="login" options={{ headerShown: false }} />
+								<Stack.Screen
+									name="cadastro"
+									options={{ headerShown: false }}
+								/>
+								<Stack.Screen
+									name="cadastropessoal"
+									options={{ headerShown: false }}
+								/>
+							</Stack>
+						</ApplicationProvider>
+					</SafeAreaProvider>
+				</SessionProvider>
+			</NavigationContainer>
 		</>
 	);
 }
