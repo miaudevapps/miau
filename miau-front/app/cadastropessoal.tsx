@@ -28,7 +28,7 @@ export default function CadastroPessoal() {
 
 	return (
 		<Layout style={{ flex: 1 }}>
-			{TopNav("Cadastro")}
+			{TopNav("Cadastro", "cfe9e5")}
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
 				<Layout style={{ alignItems: "center" }}>
 					{/* Caixa com o texto informativo */}
@@ -101,7 +101,8 @@ export default function CadastroPessoal() {
 						style={styles.button}
 						onPress={() => {
 							handleSignUp();
-						}}>
+						}}
+					>
 						{(evaProps) => (
 							<Text style={styles.buttonText}>FAZER CADASTRO</Text>
 						)}

@@ -10,7 +10,7 @@ export default function Cadastro() {
 	return (
 		<Layout style={{ flex: 1 }}>
 			<Layout style={{ alignItems: "center" }}>
-				{TopNav("Cadastro")}
+				{TopNav("Cadastro", "#88c9bf")}
 				<Text category="h1" style={styles.title}>
 					Ops!
 				</Text>

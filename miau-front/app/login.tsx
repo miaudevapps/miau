@@ -40,7 +40,7 @@ export default function Login() {
 
 	return (
 		<Layout style={{ flex: 1, alignItems: "center" }}>
-			{TopNav("Login")}
+			{TopNav("Login", "cfe9e5")}
 			<Layout style={{ marginTop: 64, marginBottom: 32 }}>
 				<Input
 					placeholder="Nome de usuário"

@@ -15,11 +15,11 @@ const MenuAction = (): React.ReactElement => (
 	<TopNavigationAction icon={MenuIcon} />
 );
 
-export const TopNav = (pageName: string): React.ReactElement => (
+export const TopNav = (pageName: string, color: string): React.ReactElement => (
 	<TopNavigation
 		accessoryLeft={MenuAction}
 		title={pageName}
-		style={styles.topNav}
+		style={{ backgroundColor: color, width: "100%", height: 56 }}
 	/>
 );
 
