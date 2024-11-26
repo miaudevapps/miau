@@ -35,10 +35,11 @@ export default function RootLayout() {
 							<Stack.Screen name="home" options={{ headerShown: false }} />
 							<Stack.Screen name="login" options={{ headerShown: false }} />
 							<Stack.Screen name="cadastro" options={{ headerShown: false }} />
-							<Stack.Screen
-								name="cadastropessoal"
-								options={{ headerShown: false }}
-							/>
+							<Stack.Screen name="cadastropessoal" options={{ headerShown: false }} />
+							<Stack.Screen name="cadastroanimalfeito" options={{ headerShown: false }} />
+							<Stack.Screen name="cadastroanimal" options={{ headerShown: false }} />
+
+
 						</Stack>
 					</ApplicationProvider>
 				</SafeAreaProvider>

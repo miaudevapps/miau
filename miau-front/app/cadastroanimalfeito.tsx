@@ -3,26 +3,28 @@ import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
 
-export default function Cadastro() {
+export default function cadastroanimalfeito() {
 	return (
 		<Layout style={{ flex: 1 }}>
-			{TopNav("Cadastro")}
+            {TopNav("Cadastro do Animal")}
 			<Layout style={{ alignItems: "center" }}>
 				<Text category="h1" style={styles.title}> 
-					Ops!
+					Eba!
 				</Text>
-				<Text style={styles.descriptionone}>
-				    Você não pode realizar esta ação sem{"\n"}
-					possuir um cadastro
+				<Text style={styles.description}>
+				    O cadastro do seu pet foi realizado{"\n"}
+                    com sucesso!
+				</Text>
+                <Text style={styles.description}>
+                Certifique-se que permitiu o envio de{"\n"}
+                notificações por push no campo{"\n"}
+                privacidade do menu configurações do{"\n"}
+                aplicativo. Assim, poderemos te avisar{"\n"}
+                assim que alguém interessado entrar{"\n"}
+                em contato!
 				</Text>
 				<Button style={styles.button}>
-					{(evaProps) => <Text style={styles.buttonText}>FAZER CADASTRO</Text>}
-				</Button>
-                <Text style={styles.descriptiontwo}>
-				    Já possui cadastro?
-				</Text>
-				<Button style={styles.button}>
-					{(evaProps) => <Text style={styles.buttonText}>FAZER LOGIN</Text>}
+					{(evaProps) => <Text style={styles.buttonText}>MEUS PETS</Text>}
 				</Button>
 			</Layout>
 		</Layout>
@@ -33,40 +35,33 @@ const styles = StyleSheet.create({
     title: {
 		fontFamily: "Courgette", // Define a fonte Courgette
 		fontSize: 53, // Define o tamanho do texto
-		color: "#88c9bf", // Cor do texto
+		color: "#ffd358", // Cor do texto
 		marginTop: 52,
 	},
 	button: {
 		width: 232,
         height: 40,
 		borderWidth: 2,
-		borderColor: "#88c9bf",
-		backgroundColor: "#88c9bf",
+		borderColor: "#ffd358",
+		backgroundColor: "#ffd358",
 		borderRadius: 4, // Definindo bordas retas (ajuste para arredondar se necessário)
 		shadowColor: "#000", // Cor da sombra
 		shadowOffset: { width: 0, height: 2 }, // Direção da sombra
 		shadowOpacity: 0.25, // Opacidade da sombra
 		shadowRadius: 3.84, // Raio da sombra
 		elevation: 5, // Elevação para Android
-		marginTop: 16,
+		marginTop: 100,
 	},
 	buttonText: {
 		fontFamily: "Roboto", // Define a fonte como Roboto
 		fontSize: 12, // Tamanho do texto em pt
 		color: "#434343", // Cor do texto
 	},
-	descriptionone: {
+	description: {
 		fontFamily: "Roboto", // Define a fonte Roboto
 		fontSize: 14, // Define o tamanho do texto
 		color: "#757575", // Cor do texto
 		marginTop: 52,
-		textAlign: "center",
-	},
-	descriptiontwo: {
-		fontFamily: "Roboto", // Define a fonte Roboto
-		fontSize: 14, // Define o tamanho do texto
-		color: "#757575", // Cor do texto
-		marginTop: 44,
 		textAlign: "center",
 	},
 });

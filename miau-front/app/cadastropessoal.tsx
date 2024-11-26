@@ -1,18 +1,14 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
+import { TopNav } from "../components/navigation/TopNavegation";
 
 export default function CadastroPessoal() {
     return (
         <Layout style={{ flex: 1 }}>
+            {TopNav("Cadastro Pessoal")}
             <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Layout style={{ alignItems: "center" }}>
-                    {/* Navbar */}
-                    <Layout style={styles.navbar}>
-                        <Button style={styles.backButton}><Text>O</Text></Button>
-                        <Text style={styles.navbarText}>Cadastro Pessoal</Text>
-                    </Layout>
-
-                    {/* Caixa com o texto informativo */}
+                
                     <Layout style={styles.box}>
                         <Text style={styles.boxText}>
                             As informações preenchidas serão divulgadas{"\n"}
@@ -109,27 +105,6 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         paddingBottom: 50,  // Adiciona um espaçamento no final
         paddingHorizontal: 16, // Margem lateral para deixar o conteúdo mais espaçado
-    },
-    navbar: {
-        width: '100%',      // A largura será 100% para garantir que ocupe toda a tela
-        height: 56,
-        backgroundColor: "#88c9bf",
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    backButton: {
-        width: 24,
-        height: 24,
-        marginLeft: 16,
-        marginTop: 16,
-        marginBottom: 16,
-    },
-    navbarText: {
-        flex: 1,
-        fontFamily: "Roboto",
-        fontSize: 20,
-        color: "#434343",
-        marginLeft: 20,
     },
     box: {
         width: 328,
