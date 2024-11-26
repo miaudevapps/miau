@@ -12,7 +12,9 @@ import {
 export default function Login() {
 	const [isFocused, setIsFocused] = useState(false); // Estado para foco no campo
 
-	const navigation = useNavigation();
+	const navigation = useNavigation<any>();
+
+	//const navigation = useNavigation();
 
 	const [formState, setFormState] = React.useState({
 		email: "",
@@ -30,7 +32,7 @@ export default function Login() {
 	const handleLogin = async () => {
 		try {
 			await signIn(formState.email, formState.password).then(() => {
-				navigation.navigate("home");
+				navigation.navigate("Home");
 			});
 		} catch (error) {
 			console.error("Erro de login", error);
