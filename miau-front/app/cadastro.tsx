@@ -1,9 +1,12 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { TopNav } from "../components/navigation/TopNavegation";
 
 export default function Cadastro() {
+	const navigation = useNavigation<any>();
+
 	return (
 		<Layout style={{ flex: 1 }}>
 			<Layout style={{ alignItems: "center" }}>
@@ -15,11 +18,21 @@ export default function Cadastro() {
 					Você não pode realizar esta ação sem{"\n"}
 					possuir um cadastro
 				</Text>
-				<Button style={styles.button}>
+				<Button
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("cadastropessoal");
+					}}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER CADASTRO</Text>}
 				</Button>
 				<Text style={styles.descriptiontwo}>Já possui cadastro?</Text>
-				<Button style={styles.button}>
+				<Button
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("login");
+					}}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER LOGIN</Text>}
 				</Button>
 			</Layout>
