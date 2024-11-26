@@ -2,6 +2,7 @@ import {
 	User,
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
+	createUserWithEmailAndPassword,
 	signOut as firebaseSignOut,
 } from "firebase/auth";
 import { auth } from "./firebaseconfig";
@@ -16,11 +17,13 @@ import React, {
 const AuthContext = createContext<{
 	user: any;
 	isLoading: boolean;
+	signUp: (email: string, password: string) => Promise<void>;
 	signIn: (email: string, password: string) => Promise<void>;
 	signOut: () => Promise<void>;
 }>({
 	user: null,
 	isLoading: true,
+	signUp: async () => {},
 	signIn: async () => {},
 	signOut: async () => {},
 });
@@ -47,6 +50,19 @@ const SessionProvider = ({ children }: PropsWithChildren) => {
 		});
 		return () => unsubscribe();
 	}, []);
+
+	// função para criar um novo usuário
+	const signUp = async (email: string, password: string) => {
+		setIsLoading(true);
+		try {
+			await createUserWithEmailAndPassword(auth, email, password);
+			console.log("Usuário criado com sucesso!");
+		} catch (error) {
+			console.error("Erro ao criar usuário", error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
 	// Função para realizar login
 	const signIn = async (email: string, password: string) => {
@@ -76,7 +92,7 @@ const SessionProvider = ({ children }: PropsWithChildren) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, isLoading, signIn, signOut }}>
+		<AuthContext.Provider value={{ user, isLoading, signUp, signIn, signOut }}>
 			{children}
 		</AuthContext.Provider>
 	);
