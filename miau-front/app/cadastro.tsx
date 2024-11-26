@@ -1,29 +1,42 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Cadastro() {
+	const navigation = useNavigation<any>();
+
 	return (
 		<Layout style={{ flex: 1 }}>
 			<Layout style={{ alignItems: "center" }}>
-                <Layout style={styles.navbar}>
-                <Button style={styles.backButton}><Text>O</Text></Button>
-                <Text style={styles.navbarText}>Cadastro</Text>
-                </Layout>
-				<Text category="h1" style={styles.title}> 
+				<Layout style={styles.navbar}>
+					<Button style={styles.backButton}>
+						<Text>O</Text>
+					</Button>
+					<Text style={styles.navbarText}>Cadastro</Text>
+				</Layout>
+				<Text category="h1" style={styles.title}>
 					Ops!
 				</Text>
 				<Text style={styles.descriptionone}>
-				    Você não pode realizar esta ação sem{"\n"}
+					Você não pode realizar esta ação sem{"\n"}
 					possuir um cadastro
 				</Text>
-				<Button style={styles.button}>
+				<Button
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("cadastropessoal");
+					}}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER CADASTRO</Text>}
 				</Button>
-                <Text style={styles.descriptiontwo}>
-				    Já possui cadastro?
-				</Text>
-				<Button style={styles.button}>
+				<Text style={styles.descriptiontwo}>Já possui cadastro?</Text>
+				<Button
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("login");
+					}}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER LOGIN</Text>}
 				</Button>
 			</Layout>
@@ -32,28 +45,28 @@ export default function Cadastro() {
 }
 
 const styles = StyleSheet.create({
-    navbar: {
-        width: 360,                  // Largura do retângulo
-        height: 56,                  // Altura da Navbar
-        backgroundColor: "#88c9bf",  // Cor da Navbar
-        flexDirection: "row",        // Itens na horizontal
-        alignItems: "center",        // Alinhar os itens verticalmente no centro
-    },
-    backButton: {
-        width: 24,                   // Tamanho do ícone
-        height: 24,                  // Tamanho do ícone
-        marginLeft: 16,              // Distância da borda esquerda
-        marginTop: 16,               // Distância do topo
-        marginBottom: 16,            // Distância da base
-    },
-    navbarText: {
-        flex: 1,                     // O texto vai ocupar o espaço restante
-        fontFamily: "Roboto",        // Fonte Roboto
-        fontSize: 20,                // Tamanho da fonte 20pt
-        color: "#434343",            // Cor do texto
-        marginLeft: 20,
-    },
-    title: {
+	navbar: {
+		width: 360, // Largura do retângulo
+		height: 56, // Altura da Navbar
+		backgroundColor: "#88c9bf", // Cor da Navbar
+		flexDirection: "row", // Itens na horizontal
+		alignItems: "center", // Alinhar os itens verticalmente no centro
+	},
+	backButton: {
+		width: 24, // Tamanho do ícone
+		height: 24, // Tamanho do ícone
+		marginLeft: 16, // Distância da borda esquerda
+		marginTop: 16, // Distância do topo
+		marginBottom: 16, // Distância da base
+	},
+	navbarText: {
+		flex: 1, // O texto vai ocupar o espaço restante
+		fontFamily: "Roboto", // Fonte Roboto
+		fontSize: 20, // Tamanho da fonte 20pt
+		color: "#434343", // Cor do texto
+		marginLeft: 20,
+	},
+	title: {
 		fontFamily: "Courgette", // Define a fonte Courgette
 		fontSize: 53, // Define o tamanho do texto
 		color: "#88c9bf", // Cor do texto
@@ -61,7 +74,7 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: 232,
-        height: 40,
+		height: 40,
 		borderWidth: 2,
 		borderColor: "#88c9bf",
 		backgroundColor: "#88c9bf",

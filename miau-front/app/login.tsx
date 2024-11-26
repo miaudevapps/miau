@@ -31,9 +31,8 @@ export default function Login() {
 
 	const handleLogin = async () => {
 		try {
-			await signIn(formState.email, formState.password).then(() => {
-				navigation.navigate("Home");
-			});
+			await signIn(formState.email, formState.password);
+			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro de login", error);
 		}
