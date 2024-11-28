@@ -28,7 +28,6 @@ export default function CadastroPessoal() {
 
 	return (
 		<Layout style={{ flex: 1 }}>
-			{TopNav("Cadastro", "cfe9e5")}
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
 				<Layout style={{ alignItems: "center" }}>
 					{/* Caixa com o texto informativo */}
