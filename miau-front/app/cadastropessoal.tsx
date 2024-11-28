@@ -3,6 +3,7 @@ import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CadastroPessoal() {
 	const [formState, setFormState] = React.useState({
@@ -18,9 +19,12 @@ export default function CadastroPessoal() {
 		});
 	};
 
+	const navigation = useNavigation<any>();
+
 	const handleSignUp = async () => {
 		try {
 			await signUp(formState.email, formState.password);
+			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro ao criar usuário", error);
 		}

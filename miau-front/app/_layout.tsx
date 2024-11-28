@@ -19,6 +19,8 @@ import Index from "@/app/index";
 import Login from "@/app/login";
 import Cadastro from "@/app/cadastro";
 import CadastroPessoal from "@/app/cadastropessoal";
+import CadastroAnimal from "./cadastroanimal";
+import cadastroanimalfeito from "./cadastroanimalfeito";
 
 const Stack = createNativeStackNavigator();
 
@@ -61,6 +63,16 @@ export default function RootLayout() {
 								name="cadastropessoal"
 								options={{ headerShown: false }}
 								component={CadastroPessoal}
+							/>
+							<Stack.Screen
+								name="cadastroanimal"
+								options={{ headerShown: false }}
+								component={CadastroAnimal}
+							/>
+							<Stack.Screen
+								name="cadastroanimalfeito"
+								options={{ headerShown: false }}
+								component={cadastroanimalfeito}
 							/>
 						</Stack.Navigator>
 					</ApplicationProvider>

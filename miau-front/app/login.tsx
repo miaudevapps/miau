@@ -4,10 +4,7 @@ import { useState } from "react";
 import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
-import {
-	createStaticNavigation,
-	useNavigation,
-} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
 	const [isFocused, setIsFocused] = useState(false); // Estado para foco no campo
