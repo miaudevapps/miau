@@ -4,9 +4,14 @@ import { useState } from "react";
 import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
 	const [isFocused, setIsFocused] = useState(false); // Estado para foco no campo
+
+	const navigation = useNavigation<any>();
+
+	//const navigation = useNavigation();
 
 	const [formState, setFormState] = React.useState({
 		email: "",
@@ -24,6 +29,7 @@ export default function Login() {
 	const handleLogin = async () => {
 		try {
 			await signIn(formState.email, formState.password);
+			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro de login", error);
 		}
@@ -31,7 +37,7 @@ export default function Login() {
 
 	return (
 		<Layout style={{ flex: 1, alignItems: "center" }}>
-			{TopNav("Login")}
+			{TopNav("Login", "cfe9e5")}
 			<Layout style={{ marginTop: 64, marginBottom: 32 }}>
 				<Input
 					placeholder="Nome de usuário"
@@ -55,7 +61,8 @@ export default function Login() {
 				style={styles.button}
 				onPress={() => {
 					handleLogin();
-				}}>
+				}}
+			>
 				{(evaProps) => <Text style={styles.buttonText}>ENTRAR</Text>}
 			</Button>
 			<Button
@@ -65,7 +72,8 @@ export default function Login() {
 						source={require("../assets/images/facebook.png")}
 						style={styles.logo}
 					/>
-				)}>
+				)}
+			>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O FACEBOOK</Text>
 				)}
@@ -77,7 +85,8 @@ export default function Login() {
 						source={require("../assets/images/google.png")}
 						style={styles.logo}
 					/>
-				)}>
+				)}
+			>
 				{(evaProps) => (
 					<Text style={styles.buttonText_redes}>ENTRAR COM O GOOGLE</Text>
 				)}

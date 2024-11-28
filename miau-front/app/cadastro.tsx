@@ -1,27 +1,38 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { TopNav } from "../components/navigation/TopNavegation";
 
 export default function Cadastro() {
+	const navigation = useNavigation<any>();
+
 	return (
 		<Layout style={{ flex: 1 }}>
-			{TopNav("Cadastro")}
 			<Layout style={{ alignItems: "center" }}>
-				<Text category="h1" style={styles.title}> 
+				{TopNav("Cadastro", "#88c9bf")}
+				<Text category="h1" style={styles.title}>
 					Ops!
 				</Text>
 				<Text style={styles.descriptionone}>
-				    Você não pode realizar esta ação sem{"\n"}
+					Você não pode realizar esta ação sem{"\n"}
 					possuir um cadastro
 				</Text>
-				<Button style={styles.button}>
+				<Button
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("cadastropessoal");
+					}}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER CADASTRO</Text>}
 				</Button>
-                <Text style={styles.descriptiontwo}>
-				    Já possui cadastro?
-				</Text>
-				<Button style={styles.button}>
+				<Text style={styles.descriptiontwo}>Já possui cadastro?</Text>
+				<Button
+					style={styles.button}
+					onPress={() => {
+						navigation.navigate("login");
+					}}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER LOGIN</Text>}
 				</Button>
 			</Layout>
@@ -30,15 +41,15 @@ export default function Cadastro() {
 }
 
 const styles = StyleSheet.create({
-    title: {
+	title: {
 		fontFamily: "Courgette", // Define a fonte Courgette
-		fontSize: 53, // Define o tamanho do texto
+		fontSize: 72, // Define o tamanho do texto
 		color: "#88c9bf", // Cor do texto
+		fontWeight: "400", // Regular
 		marginTop: 52,
 	},
 	button: {
 		width: 232,
-        height: 40,
 		borderWidth: 2,
 		borderColor: "#88c9bf",
 		backgroundColor: "#88c9bf",
@@ -52,6 +63,7 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		fontFamily: "Roboto", // Define a fonte como Roboto
+		fontWeight: "400", // Regular
 		fontSize: 12, // Tamanho do texto em pt
 		color: "#434343", // Cor do texto
 	},
