@@ -7,32 +7,35 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
 
+interface FormValues {
+	name: string;
+	age: string;
+	email: string;
+	state: string;
+	city: string;
+	address: string;
+	phone: string;
+	username: string;
+	password: string;
+	confirmPassword: string;
+}
+
 export default function CadastroPessoal() {
-	const [formState, setFormState] = React.useState({
-		email: "",
-		password: "",
-	});
 	const { signUp, isLoading } = useSession();
-
-	const handleFormChange = (key: string, value: string) => {
-		setFormState({
-			...formState,
-			[key]: value,
-		});
-	};
-
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
-	const [submittedData, setSubmittedData] = useState(null);
-
+		watch,
+	} = useForm<FormValues>();
+	const [submittedData, setSubmittedData] = useState<FormValues | null>(null);
 	const navigation = useNavigation<any>();
 
-	const handleSignUp = async () => {
+	const handleSignUp = async (data: FormValues) => {
+		console.log("entrou aqui");
 		try {
-			await signUp(formState.email, formState.password);
+			setSubmittedData(data);
+			await signUp(data.email, data.password);
 			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro ao criar usuário", error);
@@ -59,10 +62,12 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
+							render={({ field: { onChange, value } }) => (
 								<TextInput
 									style={styles.inputField}
 									placeholder="Nome Completo"
+									onChangeText={onChange}
+									value={value}
 								/>
 							)}
 							name="name"
@@ -72,8 +77,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
-								<TextInput style={styles.inputField} placeholder="Idade" />
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Idade"
+									onChangeText={onChange}
+									value={value}
+								/>
 							)}
 							name="age"
 							rules={{ required: "Você precisa cadastrar uma idade" }}
@@ -82,11 +92,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
+							render={({ field: { onChange, value } }) => (
 								<TextInput
 									style={styles.inputField}
 									placeholder="E-mail"
-									onChangeText={(value) => handleFormChange("email", value)}
+									onChangeText={onChange}
+									value={value}
+									keyboardType="email-address"
 								/>
 							)}
 							name="email"
@@ -96,8 +108,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
-								<TextInput style={styles.inputField} placeholder="Estado" />
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Estado"
+									onChangeText={onChange}
+									value={value}
+								/>
 							)}
 							name="state"
 							rules={{ required: "Você precisa cadastrar um estado" }}
@@ -106,8 +123,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
-								<TextInput style={styles.inputField} placeholder="Cidade" />
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Cidade"
+									onChangeText={onChange}
+									value={value}
+								/>
 							)}
 							name="city"
 							rules={{ required: "Você precisa cadastrar uma cidade" }}
@@ -116,8 +138,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
-								<TextInput style={styles.inputField} placeholder="Endereço" />
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Endereço"
+									onChangeText={onChange}
+									value={value}
+								/>
 							)}
 							name="address"
 							rules={{ required: "Você precisa cadastrar um endereço" }}
@@ -126,8 +153,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
-								<TextInput style={styles.inputField} placeholder="Telefone" />
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Telefone"
+									onChangeText={onChange}
+									value={value}
+								/>
 							)}
 							name="phone"
 							rules={{ required: "Você precisa cadastrar um telefone" }}
@@ -137,10 +169,12 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
+							render={({ field: { onChange, value } }) => (
 								<TextInput
 									style={styles.inputField}
 									placeholder="Nome de Usuário"
+									onChangeText={onChange}
+									value={value}
 								/>
 							)}
 							name="username"
@@ -150,11 +184,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
+							render={({ field: { onChange, value } }) => (
 								<TextInput
 									style={styles.inputField}
 									placeholder="Senha"
-									onChangeText={(value) => handleFormChange("password", value)}
+									onChangeText={onChange}
+									value={value}
+									secureTextEntry
 								/>
 							)}
 							name="password"
@@ -164,10 +200,13 @@ export default function CadastroPessoal() {
 					<Layout style={styles.inputContainer}>
 						<Controller
 							control={control}
-							render={({ field }) => (
+							render={({ field: { onChange, value } }) => (
 								<TextInput
 									style={styles.inputField}
 									placeholder="Confirmação de senha"
+									secureTextEntry
+									onChangeText={onChange}
+									value={value}
 								/>
 							)}
 							name="confirmPassword"
@@ -175,7 +214,7 @@ export default function CadastroPessoal() {
 								required: "Você precisa confirmar a senha",
 								validate: (value) => {
 									return (
-										value === formState.password || "As senhas não coincidem"
+										value === watch("password") || "As senhas não coincidem"
 									);
 								},
 							}}
@@ -187,11 +226,7 @@ export default function CadastroPessoal() {
 					<Layout style={styles.photoBox}>
 						{/* Aqui você pode colocar o código para upload de foto */}
 					</Layout>
-					<Button
-						style={styles.button}
-						onPress={() => {
-							handleSignUp();
-						}}>
+					<Button style={styles.button} onPress={handleSubmit(handleSignUp)}>
 						{(evaProps) => (
 							<Text style={styles.buttonText}>FAZER CADASTRO</Text>
 						)}
