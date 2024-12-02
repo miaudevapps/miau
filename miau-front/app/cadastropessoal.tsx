@@ -3,7 +3,9 @@ import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useForm, Controller } from "react-hook-form";
 
 export default function CadastroPessoal() {
 	const [formState, setFormState] = React.useState({
@@ -18,6 +20,13 @@ export default function CadastroPessoal() {
 			[key]: value,
 		});
 	};
+
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
+	const [submittedData, setSubmittedData] = useState(null);
 
 	const navigation = useNavigation<any>();
 
@@ -35,7 +44,6 @@ export default function CadastroPessoal() {
 			{TopNav("Cadastro", "#cfe9e5")}
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
 				<Layout style={{ alignItems: "center" }}>
-					{/* Caixa com o texto informativo */}
 					<Layout style={styles.box}>
 						<Text style={styles.boxText}>
 							As informações preenchidas serão divulgadas{"\n"}
@@ -49,50 +57,128 @@ export default function CadastroPessoal() {
 					<Text style={styles.textBlue}>INFORMAÇÕES PESSOAIS</Text>
 
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Nome Completo" />
-					</Layout>
-					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Idade" />
-					</Layout>
-					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="E-mail"
-							onChangeText={(value) => handleFormChange("email", value)}
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Nome Completo"
+								/>
+							)}
+							name="name"
+							rules={{ required: "Você precisa cadastrar um nome" }}
 						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Estado" />
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput style={styles.inputField} placeholder="Idade" />
+							)}
+							name="age"
+							rules={{ required: "Você precisa cadastrar uma idade" }}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Cidade" />
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="E-mail"
+									onChangeText={(value) => handleFormChange("email", value)}
+								/>
+							)}
+							name="email"
+							rules={{ required: "Você precisa cadastrar um e-mail" }}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Endereço" />
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput style={styles.inputField} placeholder="Estado" />
+							)}
+							name="state"
+							rules={{ required: "Você precisa cadastrar um estado" }}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Telefone" />
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput style={styles.inputField} placeholder="Cidade" />
+							)}
+							name="city"
+							rules={{ required: "Você precisa cadastrar uma cidade" }}
+						/>
 					</Layout>
-
-					{/* Informações de perfil */}
+					<Layout style={styles.inputContainer}>
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput style={styles.inputField} placeholder="Endereço" />
+							)}
+							name="address"
+							rules={{ required: "Você precisa cadastrar um endereço" }}
+						/>
+					</Layout>
+					<Layout style={styles.inputContainer}>
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput style={styles.inputField} placeholder="Telefone" />
+							)}
+							name="phone"
+							rules={{ required: "Você precisa cadastrar um telefone" }}
+						/>
+					</Layout>
 					<Text style={styles.textBlue}>INFORMAÇÕES DE PERFIL</Text>
 					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="Nome de Usuário"
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Nome de Usuário"
+								/>
+							)}
+							name="username"
+							rules={{ required: "Você precisa cadastrar um nome de usuário" }}
 						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="Senha"
-							onChangeText={(value) => handleFormChange("password", value)}
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Senha"
+									onChangeText={(value) => handleFormChange("password", value)}
+								/>
+							)}
+							name="password"
+							rules={{ required: "Você precisa cadastrar uma senha" }}
 						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="Confirmação de senha"
+						<Controller
+							control={control}
+							render={({ field }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Confirmação de senha"
+								/>
+							)}
+							name="confirmPassword"
+							rules={{
+								required: "Você precisa confirmar a senha",
+								validate: (value) => {
+									return (
+										value === formState.password || "As senhas não coincidem"
+									);
+								},
+							}}
 						/>
 					</Layout>
 
@@ -105,8 +191,7 @@ export default function CadastroPessoal() {
 						style={styles.button}
 						onPress={() => {
 							handleSignUp();
-						}}
-					>
+						}}>
 						{(evaProps) => (
 							<Text style={styles.buttonText}>FAZER CADASTRO</Text>
 						)}

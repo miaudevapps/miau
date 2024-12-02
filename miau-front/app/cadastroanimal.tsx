@@ -70,8 +70,7 @@ export default function CadastroAnimal() {
 						<RadioGroup
 							selectedIndex={selectedSpecies}
 							onChange={handleSpeciesChange}
-							style={styles.radioGroup}
-						>
+							style={styles.radioGroup}>
 							<Radio>Cachorro</Radio>
 							<Radio>Gato</Radio>
 						</RadioGroup>
@@ -82,8 +81,7 @@ export default function CadastroAnimal() {
 						<RadioGroup
 							selectedIndex={selectedSpecies}
 							onChange={handleSpeciesChange}
-							style={styles.radioGroup}
-						>
+							style={styles.radioGroup}>
 							<Radio>Macho</Radio>
 							<Radio>Fêmea</Radio>
 						</RadioGroup>
@@ -93,8 +91,7 @@ export default function CadastroAnimal() {
 						<RadioGroup
 							selectedIndex={selectedSpecies}
 							onChange={handleSpeciesChange}
-							style={styles.radioGroup}
-						>
+							style={styles.radioGroup}>
 							<Radio>Pequeno</Radio>
 							<Radio>Médio</Radio>
 							<Radio>Grande</Radio>
@@ -105,8 +102,7 @@ export default function CadastroAnimal() {
 						<RadioGroup
 							selectedIndex={selectedSpecies}
 							onChange={handleSpeciesChange}
-							style={styles.radioGroup}
-						>
+							style={styles.radioGroup}>
 							<Radio>Filhote</Radio>
 							<Radio>Adulto</Radio>
 							<Radio>Idoso</Radio>
