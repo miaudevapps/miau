@@ -5,12 +5,14 @@ import {
 	Radio,
 	RadioGroup,
 	Input,
+	CheckBox,
 } from "@ui-kitten/components";
 import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
+import { createAnimal } from "@/services/animals";
 
 interface FormValues {
 	tipo_anuncio: string;
@@ -84,7 +86,7 @@ export default function CadastroAnimal() {
 					</Layout>
 
 					<Text style={styles.TextYellow}>FOTO DO ANIMAL</Text>
-					<Layout style={styles.photoBox}></Layout>
+					<Layout style={styles.photoBox}> </Layout>
 
 					<Text style={styles.TextYellow}>ESPÉCIE</Text>
 					<Layout style={styles.radioBox}>
@@ -242,186 +244,190 @@ export default function CadastroAnimal() {
 							</Layout>
 						)}
 					/>
-					</Layout>
-
-					{/* Campo Saúde - Checkboxes */}
-					<Text style={styles.TextYellow}>SAÚDE</Text>
-					<Layout style={styles.checkboxContainer}>
-						<Controller
-							control={control}
-							name="saúde"
-							render={({ field: { onChange, value } }) => (
-								<Layout style={styles.checkboxContainer}>
-									<CheckBox
-										checked={value?.includes("vacinado")}
-										onChange={() => {
-											const newValue = value?.includes("vacinado")
-												? value.filter((item) => item !== "vacinado")
-												: [...(value || []), "vacinado"];
-											onChange(newValue);
-										}}
-									>
-										Vacinado
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("vermifugado")}
-										onChange={() => {
-											const newValue = value?.includes("vermifugado")
-												? value.filter((item) => item !== "vermifugado")
-												: [...(value || []), "vermifugado"];
-											onChange(newValue);
-										}}
-									>
-										Vermifugado
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("castrado")}
-										onChange={() => {
-											const newValue = value?.includes("castrado")
-												? value.filter((item) => item !== "castrado")
-												: [...(value || []), "castrado"];
-											onChange(newValue);
-										}}
-									>
-										Castrado
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("doente")}
-										onChange={() => {
-											const newValue = value?.includes("doente")
-												? value.filter((item) => item !== "doente")
-												: [...(value || []), "doente"];
-											onChange(newValue);
-										}}
-									>
-										Doente
-									</CheckBox>
-								</Layout>
-							)}
-						/>
-					</Layout>
-
-					{/* Campo Exigências para Adoção - Checkboxes */}
-					<Text style={styles.TextYellow}>EXIGÊNCIAS PARA ADOÇÃO</Text>
-					<Layout style={styles.checkboxContainer}>
-						<Controller
-							control={control}
-							name="exigencias"
-							render={({ field: { onChange, value } }) => (
-								<Layout style={styles.checkboxContainer}>
-									<CheckBox
-										checked={value?.includes("termoAdocao")}
-										onChange={() => {
-											const newValue = value?.includes("termoAdocao")
-												? value.filter((item) => item !== "termoAdocao")
-												: [...(value || []), "termoAdocao"];
-											onChange(newValue);
-										}}
-									>
-										Termo de Adoção
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("fotosCasa")}
-										onChange={() => {
-											const newValue = value?.includes("fotosCasa")
-												? value.filter((item) => item !== "fotosCasa")
-												: [...(value || []), "fotosCasa"];
-											onChange(newValue);
-										}}
-									>
-										Fotos da Casa
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("visitaPrevia")}
-										onChange={() => {
-											const newValue = value?.includes("visitaPrevia")
-												? value.filter((item) => item !== "visitaPrevia")
-												: [...(value || []), "visitaPrevia"];
-											onChange(newValue);
-										}}
-									>
-										Visita Prévia ao Animal
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("acompanhamentoPosAdocao")}
-										onChange={() => {
-											const newValue = value?.includes("acompanhamentoPosAdocao")
-												? value.filter((item) => item !== "acompanhamentoPosAdocao")
-												: [...(value || []), "acompanhamentoPosAdocao"];
-											onChange(newValue);
-										}}
-									>
-										Acompanhamento Pós Adoção
-									</CheckBox>
-								</Layout>
-							)}
-						/>
-					</Layout>
-
-					{/* Campo Tempo de Acompanhamento - Checkboxes */}
-					<Text style={styles.TextYellow}>TEMPO DE ACOMPANHAMENTO</Text>
-					<Layout style={styles.checkboxContainer}>
-						<Controller
-							control={control}
-							name="tempo_acompanhamento"
-							render={({ field: { onChange, value } }) => (
-								<Layout style={styles.checkboxContainer}>
-									<CheckBox
-										checked={value?.includes("umMes")}
-										onChange={() => {
-											const newValue = value?.includes("umMes")
-												? value.filter((item) => item !== "umMes")
-												: [...(value || []), "umMes"];
-											onChange(newValue);
-										}}
-									>
-										1 mês
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("tresMeses")}
-										onChange={() => {
-											const newValue = value?.includes("tresMeses")
-												? value.filter((item) => item !== "tresMeses")
-												: [...(value || []), "tresMeses"];
-											onChange(newValue);
-										}}
-									>
-										3 meses
-									</CheckBox>
-									<CheckBox
-										checked={value?.includes("seisMeses")}
-										onChange={() => {
-											const newValue = value?.includes("seisMeses")
-												? value.filter((item) => item !== "seisMeses")
-												: [...(value || []), "seisMeses"];
-											onChange(newValue);
-										}}
-									>
-										6 meses
-									</CheckBox>
-								</Layout>
-							)}
-						/>
-					</Layout>
-					<Layout style={styles.inputContainer}>
-						<Controller
-							control={control}
-							name="doenças"
-							render={({ field: { onChange, value } }) => (
-								<TextInput
-									style={styles.inputField}
-									placeholder="Doenças do animal"
-									onChangeText={onChange}
-									value={value}
-								/>
-							)}
-						/>
-					</Layout>
-
-					<Button style={styles.button} onPress={handleSubmit(handleCadastroAnimal)}>
-						<Text style={styles.buttonText}>COLOCAR PARA ADOÇÃO</Text>
-					</Button>
 				</Layout>
+
+				{/* Campo Saúde - Checkboxes */}
+				<Text style={styles.TextYellow}>SAÚDE</Text>
+				<Layout style={styles.checkboxContainer}>
+					<Controller
+						control={control}
+						name="saúde"
+						render={({ field: { onChange, value } }) => (
+							<Layout style={styles.checkboxContainer}>
+								<CheckBox
+									checked={value?.includes("vacinado")}
+									onChange={() => {
+										const newValue = value?.includes("vacinado")
+											? value.filter((item) => item !== "vacinado")
+											: [...(value || []), "vacinado"];
+										onChange(newValue);
+									}}
+								>
+									Vacinado
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("vermifugado")}
+									onChange={() => {
+										const newValue = value?.includes("vermifugado")
+											? value.filter((item) => item !== "vermifugado")
+											: [...(value || []), "vermifugado"];
+										onChange(newValue);
+									}}
+								>
+									Vermifugado
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("castrado")}
+									onChange={() => {
+										const newValue = value?.includes("castrado")
+											? value.filter((item) => item !== "castrado")
+											: [...(value || []), "castrado"];
+										onChange(newValue);
+									}}
+								>
+									Castrado
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("doente")}
+									onChange={() => {
+										const newValue = value?.includes("doente")
+											? value.filter((item) => item !== "doente")
+											: [...(value || []), "doente"];
+										onChange(newValue);
+									}}
+								>
+									Doente
+								</CheckBox>
+							</Layout>
+						)}
+					/>
+				</Layout>
+
+				{/* Campo Exigências para Adoção - Checkboxes */}
+				<Text style={styles.TextYellow}>EXIGÊNCIAS PARA ADOÇÃO</Text>
+				<Layout style={styles.checkboxContainer}>
+					<Controller
+						control={control}
+						name="exigencias"
+						render={({ field: { onChange, value } }) => (
+							<Layout style={styles.checkboxContainer}>
+								<CheckBox
+									checked={value?.includes("termoAdocao")}
+									onChange={() => {
+										const newValue = value?.includes("termoAdocao")
+											? value.filter((item) => item !== "termoAdocao")
+											: [...(value || []), "termoAdocao"];
+										onChange(newValue);
+									}}
+								>
+									Termo de Adoção
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("fotosCasa")}
+									onChange={() => {
+										const newValue = value?.includes("fotosCasa")
+											? value.filter((item) => item !== "fotosCasa")
+											: [...(value || []), "fotosCasa"];
+										onChange(newValue);
+									}}
+								>
+									Fotos da Casa
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("visitaPrevia")}
+									onChange={() => {
+										const newValue = value?.includes("visitaPrevia")
+											? value.filter((item) => item !== "visitaPrevia")
+											: [...(value || []), "visitaPrevia"];
+										onChange(newValue);
+									}}
+								>
+									Visita Prévia ao Animal
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("acompanhamentoPosAdocao")}
+									onChange={() => {
+										const newValue = value?.includes("acompanhamentoPosAdocao")
+											? value.filter(
+													(item) => item !== "acompanhamentoPosAdocao"
+											  )
+											: [...(value || []), "acompanhamentoPosAdocao"];
+										onChange(newValue);
+									}}
+								>
+									Acompanhamento Pós Adoção
+								</CheckBox>
+							</Layout>
+						)}
+					/>
+				</Layout>
+
+				{/* Campo Tempo de Acompanhamento - Checkboxes */}
+				<Text style={styles.TextYellow}>TEMPO DE ACOMPANHAMENTO</Text>
+				<Layout style={styles.checkboxContainer}>
+					<Controller
+						control={control}
+						name="tempo_acompanhamento"
+						render={({ field: { onChange, value } }) => (
+							<Layout style={styles.checkboxContainer}>
+								<CheckBox
+									checked={value?.includes("umMes")}
+									onChange={() => {
+										const newValue = value?.includes("umMes")
+											? value.filter((item) => item !== "umMes")
+											: [...(value || []), "umMes"];
+										onChange(newValue);
+									}}
+								>
+									1 mês
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("tresMeses")}
+									onChange={() => {
+										const newValue = value?.includes("tresMeses")
+											? value.filter((item) => item !== "tresMeses")
+											: [...(value || []), "tresMeses"];
+										onChange(newValue);
+									}}
+								>
+									3 meses
+								</CheckBox>
+								<CheckBox
+									checked={value?.includes("seisMeses")}
+									onChange={() => {
+										const newValue = value?.includes("seisMeses")
+											? value.filter((item) => item !== "seisMeses")
+											: [...(value || []), "seisMeses"];
+										onChange(newValue);
+									}}
+								>
+									6 meses
+								</CheckBox>
+							</Layout>
+						)}
+					/>
+				</Layout>
+				<Layout style={styles.inputContainer}>
+					<Controller
+						control={control}
+						name="doenças"
+						render={({ field: { onChange, value } }) => (
+							<TextInput
+								style={styles.inputField}
+								placeholder="Doenças do animal"
+								onChangeText={onChange}
+								value={value}
+							/>
+						)}
+					/>
+				</Layout>
+
+				<Button
+					style={styles.button}
+					onPress={handleSubmit(handleCadastroAnimal)}
+				>
+					<Text style={styles.buttonText}>COLOCAR PARA ADOÇÃO</Text>
+				</Button>
 			</ScrollView>
 		</Layout>
 	);
@@ -540,5 +546,11 @@ const styles = StyleSheet.create({
 	},
 	radioGroup: {
 		flexDirection: "row",
+	},
+
+	checkboxContainer: {
+		marginTop: 10,
+		alignItems: "flex-start",
+		paddingLeft: 100,
 	},
 });
