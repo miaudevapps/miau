@@ -32,7 +32,6 @@ export default function CadastroPessoal() {
 	const navigation = useNavigation<any>();
 
 	const handleSignUp = async (data: FormValues) => {
-		console.log("entrou aqui");
 		try {
 			setSubmittedData(data);
 			await signUp(data.email, data.password);
