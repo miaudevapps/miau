@@ -6,6 +6,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
+import { createUser } from "@/services/users";
 
 interface FormValues {
 	name: string;
@@ -35,6 +36,8 @@ export default function CadastroPessoal() {
 		try {
 			setSubmittedData(data);
 			await signUp(data.email, data.password);
+			const { password, confirmPassword, ...userData } = data;
+			await createUser(data.email, userData);
 			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro ao criar usuário", error);
