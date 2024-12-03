@@ -38,6 +38,7 @@ export default function RootLayout() {
 							<Stack.Screen name="cadastropessoal" options={{ headerShown: false }} />
 							<Stack.Screen name="cadastroanimalfeito" options={{ headerShown: false }} />
 							<Stack.Screen name="cadastroanimal" options={{ headerShown: false }} />
+							<Stack.Screen name="detalhesanimal" options={{ headerShown: false }} />
 
 
 						</Stack>
