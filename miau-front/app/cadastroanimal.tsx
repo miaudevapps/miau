@@ -371,33 +371,36 @@ export default function CadastroAnimal() {
 						render={({ field: { onChange, value } }) => (
 							<Layout style={styles.checkboxContainer}>
 								<CheckBox
-									checked={value?.includes("umMes")}
+									checked={Array.isArray(value) && value.includes("umMes")}
 									onChange={() => {
-										const newValue = value?.includes("umMes")
-											? value.filter((item) => item !== "umMes")
-											: [...(value || []), "umMes"];
+										const newValue =
+											Array.isArray(value) && value.includes("umMes")
+												? value.filter((item: string) => item !== "umMes")
+												: [...(value || []), "umMes"];
 										onChange(newValue);
 									}}
 								>
 									1 mês
 								</CheckBox>
 								<CheckBox
-									checked={value?.includes("tresMeses")}
+									checked={Array.isArray(value) && value.includes("tresMeses")}
 									onChange={() => {
-										const newValue = value?.includes("tresMeses")
-											? value.filter((item) => item !== "tresMeses")
-											: [...(value || []), "tresMeses"];
+										const newValue =
+											Array.isArray(value) && value.includes("tresMeses")
+												? value.filter((item: string) => item !== "tresMeses")
+												: [...(value || []), "tresMeses"];
 										onChange(newValue);
 									}}
 								>
 									3 meses
 								</CheckBox>
 								<CheckBox
-									checked={value?.includes("seisMeses")}
+									checked={Array.isArray(value) && value.includes("seisMeses")}
 									onChange={() => {
-										const newValue = value?.includes("seisMeses")
-											? value.filter((item) => item !== "seisMeses")
-											: [...(value || []), "seisMeses"];
+										const newValue =
+											Array.isArray(value) && value.includes("seisMeses")
+												? value.filter((item: string) => item !== "seisMeses")
+												: [...(value || []), "seisMeses"];
 										onChange(newValue);
 									}}
 								>
