@@ -32,12 +32,15 @@ export default function CadastroPessoal() {
 	const [submittedData, setSubmittedData] = useState<FormValues | null>(null);
 	const navigation = useNavigation<any>();
 
+	const user = useSession().user;
+
 	const handleSignUp = async (data: FormValues) => {
 		try {
 			setSubmittedData(data);
 			await signUp(data.email, data.password);
+			console.log(user);
 			const { password, confirmPassword, ...userData } = data;
-			await createUser(data.email, userData);
+			await createUser(user.uid, userData);
 			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro ao criar usuário", error);

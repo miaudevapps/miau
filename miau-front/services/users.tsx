@@ -3,6 +3,8 @@ import { db } from "./firebaseconfig";
 
 export const createUser = async (userId: string, data: any) => {
 	try {
+		// add user id in data
+		data.userId = userId;
 		await setDoc(doc(db, "users", userId), data);
 		console.log("Usuário criado na tabela de users!");
 	} catch (error) {

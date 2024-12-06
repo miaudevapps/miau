@@ -1,10 +1,11 @@
 import { doc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseconfig";
+import { useSession } from "./auth";
 
 export const createAnimal = async (AnimalId: string, data: any) => {
 	try {
 		await setDoc(doc(db, "Animals", AnimalId), data);
-		console.log("Usuário criado na tabela de Animals!");
+		console.log("Animal criado na tabela de Animals!");
 	} catch (error) {
 		console.error("Erro ao criar usuário na tabela Animal", error);
 	}
