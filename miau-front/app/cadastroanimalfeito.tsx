@@ -6,22 +6,22 @@ import { TopNav } from "../components/navigation/TopNavegation";
 export default function cadastroanimalfeito() {
 	return (
 		<Layout style={{ flex: 1 }}>
-            {TopNav("Cadastro do Animal")}
+			{TopNav("Cadastro do Animal", "#fee29b")}
 			<Layout style={{ alignItems: "center" }}>
-				<Text category="h1" style={styles.title}> 
+				<Text category="h1" style={styles.title}>
 					Eba!
 				</Text>
 				<Text style={styles.description}>
-				    O cadastro do seu pet foi realizado{"\n"}
-                    com sucesso!
+					O cadastro do seu pet foi realizado{"\n"}
+					com sucesso!
 				</Text>
-                <Text style={styles.description}>
-                Certifique-se que permitiu o envio de{"\n"}
-                notificações por push no campo{"\n"}
-                privacidade do menu configurações do{"\n"}
-                aplicativo. Assim, poderemos te avisar{"\n"}
-                assim que alguém interessado entrar{"\n"}
-                em contato!
+				<Text style={styles.description}>
+					Certifique-se que permitiu o envio de{"\n"}
+					notificações por push no campo{"\n"}
+					privacidade do menu configurações do{"\n"}
+					aplicativo. Assim, poderemos te avisar{"\n"}
+					assim que alguém interessado entrar{"\n"}
+					em contato!
 				</Text>
 				<Button style={styles.button}>
 					{(evaProps) => <Text style={styles.buttonText}>MEUS PETS</Text>}
@@ -32,7 +32,7 @@ export default function cadastroanimalfeito() {
 }
 
 const styles = StyleSheet.create({
-    title: {
+	title: {
 		fontFamily: "Courgette", // Define a fonte Courgette
 		fontSize: 53, // Define o tamanho do texto
 		color: "#ffd358", // Cor do texto
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		width: 232,
-        height: 40,
+		height: 40,
 		borderWidth: 2,
 		borderColor: "#ffd358",
 		backgroundColor: "#ffd358",
