@@ -21,7 +21,7 @@ interface FormValues {
 	username: string;
 	password: string;
 	confirmPassword: string;
-	image_url: string;
+	image_url: string | null;
 }
 
 export default function CadastroPessoal() {
@@ -274,7 +274,8 @@ export default function CadastroPessoal() {
 											console.error("Erro ao fazer upload da imagem", error);
 										}
 									}
-								}}>
+								}}
+							>
 								{(evaProps) => (
 									<Text style={styles.buttonText}>UPLOAD FOTO</Text>
 								)}

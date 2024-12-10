@@ -14,6 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
 import { createAnimal } from "@/services/animals";
 import { useSession } from "@/services/auth";
+import * as ImagePicker from "expo-image-picker";
+import { uploadImage } from "@/services/image";
 
 interface FormValues {
 	nome: string;
@@ -27,6 +29,7 @@ interface FormValues {
 	exigencias: string[];
 	tempo_acompanhamento: string;
 	userId?: string;
+	image_url: string | null;
 }
 
 export default function CadastroAnimal() {
@@ -49,6 +52,7 @@ export default function CadastroAnimal() {
 			exigencias: [],
 			tempo_acompanhamento: "",
 			userId: user?.uid,
+			image_url: null,
 		},
 	});
 	const [submittedData, setSubmittedData] = useState<FormValues | null>(null);
@@ -65,6 +69,23 @@ export default function CadastroAnimal() {
 			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro ao cadastrar animal", error);
+		}
+	};
+
+	const [image, setImage] = useState<string | null>(null);
+	const [uploading, setUploading] = useState(false);
+	const pickImage = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ["images"],
+			allowsEditing: true,
+			aspect: [4, 3],
+			quality: 1,
+		});
+
+		console.log(result);
+
+		if (!result.canceled) {
+			setImage(result.assets[0].uri);
 		}
 	};
 
@@ -107,7 +128,40 @@ export default function CadastroAnimal() {
 					</Layout>
 
 					<Text style={styles.TextYellow}>FOTO DO ANIMAL</Text>
-					<Layout style={styles.photoBox}> </Layout>
+					{image && (
+						<Image
+							source={{ uri: image }}
+							style={{ width: 170, height: 200 }}
+						/>
+					)}
+					<Button style={styles.button} onPress={pickImage}>
+						{(evaProps) => (
+							<Text style={styles.buttonText}>ADICIONAR FOTO</Text>
+						)}
+					</Button>
+					<Controller
+						control={control}
+						name="image_url"
+						render={({ field: { onChange } }) => (
+							<Button
+								style={styles.button}
+								onPress={async () => {
+									if (image) {
+										try {
+											const imageUrl = await uploadImage(image);
+											onChange(imageUrl);
+										} catch (error) {
+											console.error("Erro ao fazer upload da imagem", error);
+										}
+									}
+								}}
+							>
+								{(evaProps) => (
+									<Text style={styles.buttonText}>UPLOAD FOTO</Text>
+								)}
+							</Button>
+						)}
+					/>
 
 					<Text style={styles.TextYellow}>ESPÉCIE</Text>
 					<Layout style={styles.radioBox}>
@@ -121,7 +175,8 @@ export default function CadastroAnimal() {
 									onChange={(index) =>
 										onChange(index === 0 ? "Cachorro" : "Gato")
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Cachorro</Radio>
 									<Radio>Gato</Radio>
 								</RadioGroup>
@@ -141,7 +196,8 @@ export default function CadastroAnimal() {
 									onChange={(index) =>
 										onChange(index === 0 ? "Macho" : "Fêmea")
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Macho</Radio>
 									<Radio>Fêmea</Radio>
 								</RadioGroup>
@@ -164,7 +220,8 @@ export default function CadastroAnimal() {
 											index === 0 ? "Pequeno" : index === 1 ? "Médio" : "Grande"
 										)
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Pequeno</Radio>
 									<Radio>Médio</Radio>
 									<Radio>Grande</Radio>
@@ -188,7 +245,8 @@ export default function CadastroAnimal() {
 											index === 0 ? "Filhote" : index === 1 ? "Adulto" : "Idoso"
 										)
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Filhote</Radio>
 									<Radio>Adulto</Radio>
 									<Radio>Idoso</Radio>
@@ -210,7 +268,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "brincalhao")
 											: [...(value || []), "brincalhao"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Brincalhão
 								</CheckBox>
 								<CheckBox
@@ -220,7 +279,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "timido")
 											: [...(value || []), "timido"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Tímido
 								</CheckBox>
 								<CheckBox
@@ -230,7 +290,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "calmo")
 											: [...(value || []), "calmo"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Calmo
 								</CheckBox>
 								<CheckBox
@@ -240,7 +301,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "guardaAmoroso")
 											: [...(value || []), "guardaAmoroso"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Guarda Amoroso
 								</CheckBox>
 								<CheckBox
@@ -250,7 +312,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "preguiçoso")
 											: [...(value || []), "preguiçoso"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Preguiçoso
 								</CheckBox>
 							</Layout>
@@ -273,7 +336,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "vacinado")
 											: [...(value || []), "vacinado"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Vacinado
 								</CheckBox>
 								<CheckBox
@@ -283,7 +347,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "vermifugado")
 											: [...(value || []), "vermifugado"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Vermifugado
 								</CheckBox>
 								<CheckBox
@@ -293,7 +358,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "castrado")
 											: [...(value || []), "castrado"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Castrado
 								</CheckBox>
 								<CheckBox
@@ -303,7 +369,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "doente")
 											: [...(value || []), "doente"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Doente
 								</CheckBox>
 							</Layout>
@@ -326,7 +393,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "termoAdocao")
 											: [...(value || []), "termoAdocao"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Termo de Adoção
 								</CheckBox>
 								<CheckBox
@@ -336,7 +404,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "fotosCasa")
 											: [...(value || []), "fotosCasa"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Fotos da Casa
 								</CheckBox>
 								<CheckBox
@@ -346,7 +415,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "visitaPrevia")
 											: [...(value || []), "visitaPrevia"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Visita Prévia ao Animal
 								</CheckBox>
 								<CheckBox
@@ -358,7 +428,8 @@ export default function CadastroAnimal() {
 											  )
 											: [...(value || []), "acompanhamentoPosAdocao"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Acompanhamento Pós Adoção
 								</CheckBox>
 							</Layout>
@@ -382,7 +453,8 @@ export default function CadastroAnimal() {
 												? value.filter((item: string) => item !== "umMes")
 												: [...(value || []), "umMes"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									1 mês
 								</CheckBox>
 								<CheckBox
@@ -393,7 +465,8 @@ export default function CadastroAnimal() {
 												? value.filter((item: string) => item !== "tresMeses")
 												: [...(value || []), "tresMeses"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									3 meses
 								</CheckBox>
 								<CheckBox
@@ -404,7 +477,8 @@ export default function CadastroAnimal() {
 												? value.filter((item: string) => item !== "seisMeses")
 												: [...(value || []), "seisMeses"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									6 meses
 								</CheckBox>
 							</Layout>
@@ -428,7 +502,8 @@ export default function CadastroAnimal() {
 
 				<Button
 					style={styles.button}
-					onPress={handleSubmit(handleCadastroAnimal)}>
+					onPress={handleSubmit(handleCadastroAnimal)}
+				>
 					<Text style={styles.buttonText}>COLOCAR PARA ADOÇÃO</Text>
 				</Button>
 			</ScrollView>
