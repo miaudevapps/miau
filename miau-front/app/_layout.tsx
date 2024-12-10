@@ -21,6 +21,10 @@ import Cadastro from "@/app/cadastro";
 import CadastroPessoal from "@/app/cadastropessoal";
 import CadastroAnimal from "./cadastroanimal";
 import cadastroanimalfeito from "./cadastroanimalfeito";
+import adotaranimal from "./adotaranimais";
+import Adotaranimal from "./adotaranimais";
+import Cadastroanimalfeito from "./cadastroanimalfeito";
+import Adotaranimais from "./adotaranimais";
 
 const Stack = createNativeStackNavigator();
 
@@ -72,7 +76,12 @@ export default function RootLayout() {
 							<Stack.Screen
 								name="cadastroanimalfeito"
 								options={{ headerShown: false }}
-								component={cadastroanimalfeito}
+								component={Cadastroanimalfeito}
+							/>
+							<Stack.Screen
+								name="adotaranimal"
+								options={{ headerShown: false }}
+								component={Adotaranimais}
 							/>
 						</Stack.Navigator>
 					</ApplicationProvider>

@@ -3,7 +3,7 @@ import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
 
-export default function cadastroanimalfeito() {
+export default function Cadastroanimalfeito() {
 	return (
 		<Layout style={{ flex: 1 }}>
 			{TopNav("Cadastro do Animal", "#fee29b")}
