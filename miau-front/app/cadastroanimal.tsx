@@ -27,6 +27,7 @@ interface FormValues {
 	exigencias: string[];
 	tempo_acompanhamento: string;
 	userId?: string;
+	animalID?: string;
 }
 
 export default function CadastroAnimal() {
@@ -49,6 +50,7 @@ export default function CadastroAnimal() {
 			exigencias: [],
 			tempo_acompanhamento: "",
 			userId: user?.uid,
+			animalID: "",
 		},
 	});
 	const [submittedData, setSubmittedData] = useState<FormValues | null>(null);
@@ -61,6 +63,7 @@ export default function CadastroAnimal() {
 			console.log(data);
 			// criar id aleatório para o animal
 			const animalId = Math.random().toString(36).substring(7);
+			data.animalID = animalId;
 			await createAnimal(animalId, data);
 			navigation.navigate("Home");
 		} catch (error) {
@@ -121,7 +124,8 @@ export default function CadastroAnimal() {
 									onChange={(index) =>
 										onChange(index === 0 ? "Cachorro" : "Gato")
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Cachorro</Radio>
 									<Radio>Gato</Radio>
 								</RadioGroup>
@@ -141,7 +145,8 @@ export default function CadastroAnimal() {
 									onChange={(index) =>
 										onChange(index === 0 ? "Macho" : "Fêmea")
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Macho</Radio>
 									<Radio>Fêmea</Radio>
 								</RadioGroup>
@@ -164,7 +169,8 @@ export default function CadastroAnimal() {
 											index === 0 ? "Pequeno" : index === 1 ? "Médio" : "Grande"
 										)
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Pequeno</Radio>
 									<Radio>Médio</Radio>
 									<Radio>Grande</Radio>
@@ -188,7 +194,8 @@ export default function CadastroAnimal() {
 											index === 0 ? "Filhote" : index === 1 ? "Adulto" : "Idoso"
 										)
 									}
-									style={styles.radioGroup}>
+									style={styles.radioGroup}
+								>
 									<Radio>Filhote</Radio>
 									<Radio>Adulto</Radio>
 									<Radio>Idoso</Radio>
@@ -210,7 +217,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "brincalhao")
 											: [...(value || []), "brincalhao"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Brincalhão
 								</CheckBox>
 								<CheckBox
@@ -220,7 +228,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "timido")
 											: [...(value || []), "timido"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Tímido
 								</CheckBox>
 								<CheckBox
@@ -230,7 +239,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "calmo")
 											: [...(value || []), "calmo"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Calmo
 								</CheckBox>
 								<CheckBox
@@ -240,7 +250,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "guardaAmoroso")
 											: [...(value || []), "guardaAmoroso"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Guarda Amoroso
 								</CheckBox>
 								<CheckBox
@@ -250,7 +261,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "preguiçoso")
 											: [...(value || []), "preguiçoso"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Preguiçoso
 								</CheckBox>
 							</Layout>
@@ -273,7 +285,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "vacinado")
 											: [...(value || []), "vacinado"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Vacinado
 								</CheckBox>
 								<CheckBox
@@ -283,7 +296,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "vermifugado")
 											: [...(value || []), "vermifugado"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Vermifugado
 								</CheckBox>
 								<CheckBox
@@ -293,7 +307,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "castrado")
 											: [...(value || []), "castrado"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Castrado
 								</CheckBox>
 								<CheckBox
@@ -303,7 +318,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "doente")
 											: [...(value || []), "doente"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Doente
 								</CheckBox>
 							</Layout>
@@ -326,7 +342,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "termoAdocao")
 											: [...(value || []), "termoAdocao"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Termo de Adoção
 								</CheckBox>
 								<CheckBox
@@ -336,7 +353,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "fotosCasa")
 											: [...(value || []), "fotosCasa"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Fotos da Casa
 								</CheckBox>
 								<CheckBox
@@ -346,7 +364,8 @@ export default function CadastroAnimal() {
 											? value.filter((item) => item !== "visitaPrevia")
 											: [...(value || []), "visitaPrevia"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Visita Prévia ao Animal
 								</CheckBox>
 								<CheckBox
@@ -358,7 +377,8 @@ export default function CadastroAnimal() {
 											  )
 											: [...(value || []), "acompanhamentoPosAdocao"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									Acompanhamento Pós Adoção
 								</CheckBox>
 							</Layout>
@@ -382,7 +402,8 @@ export default function CadastroAnimal() {
 												? value.filter((item: string) => item !== "umMes")
 												: [...(value || []), "umMes"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									1 mês
 								</CheckBox>
 								<CheckBox
@@ -393,7 +414,8 @@ export default function CadastroAnimal() {
 												? value.filter((item: string) => item !== "tresMeses")
 												: [...(value || []), "tresMeses"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									3 meses
 								</CheckBox>
 								<CheckBox
@@ -404,7 +426,8 @@ export default function CadastroAnimal() {
 												? value.filter((item: string) => item !== "seisMeses")
 												: [...(value || []), "seisMeses"];
 										onChange(newValue);
-									}}>
+									}}
+								>
 									6 meses
 								</CheckBox>
 							</Layout>
@@ -428,7 +451,8 @@ export default function CadastroAnimal() {
 
 				<Button
 					style={styles.button}
-					onPress={handleSubmit(handleCadastroAnimal)}>
+					onPress={handleSubmit(handleCadastroAnimal)}
+				>
 					<Text style={styles.buttonText}>COLOCAR PARA ADOÇÃO</Text>
 				</Button>
 			</ScrollView>

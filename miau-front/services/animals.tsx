@@ -1,4 +1,12 @@
-import { doc, setDoc, updateDoc, deleteDoc, collection, getDocs, getDocFromCache } from "firebase/firestore";
+import {
+	doc,
+	setDoc,
+	updateDoc,
+	deleteDoc,
+	collection,
+	getDocs,
+	getDocFromCache,
+} from "firebase/firestore";
 import { db } from "./firebaseconfig";
 import { useSession } from "./auth";
 
@@ -30,7 +38,6 @@ export const deleteAnimal = async (AnimalId: string) => {
 };
 
 export const getAnImals = async () => {
-	const { user } = useSession();
 	const AnimalList: any[] = [];
 	const querySnapshot = await getDocs(collection(db, "Animals"));
 	querySnapshot.forEach((doc) => {
@@ -38,10 +45,10 @@ export const getAnImals = async () => {
 		AnimalList.push(data);
 	});
 	return AnimalList;
-}
+};
 
 export const getAnimal = async (AnimalId: string) => {
 	const docRef = doc(db, "Animals", AnimalId);
 	// doc data
-	const docSnap = await  getDocFromCache(docRef);
+	const docSnap = await getDocFromCache(docRef);
 };
