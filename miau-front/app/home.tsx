@@ -1,8 +1,10 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
+	const navigation = useNavigation<any>();
 	return (
 		<Layout style={{ flex: 1 }}>
 			<Layout style={{ alignItems: "center" }}>
@@ -15,13 +17,19 @@ export default function HomeScreen() {
 					{"\n"}
 					Qual o seu interesse?
 				</Text>
-				<Button style={styles.button}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("adotaranimais")}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>ADOTAR</Text>}
 				</Button>
-				<Button style={styles.button}>
+				<Button style={styles.button} onPress={() => navigation.navigate("")}>
 					{(evaProps) => <Text style={styles.buttonText}>AJUDAR</Text>}
 				</Button>
-				<Button style={styles.button}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("cadastroanimal")}
+				>
 					{(evaProps) => (
 						<Text style={styles.buttonText}>CADASTRAR ANIMAL</Text>
 					)}
