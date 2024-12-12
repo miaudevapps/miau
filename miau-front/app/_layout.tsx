@@ -1,7 +1,7 @@
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { Image } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { Image } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import * as eva from "@eva-design/eva";
 import {
 	ApplicationProvider,
@@ -16,9 +16,9 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar, View, StyleSheet } from "react-native";
 import { SessionProvider } from "@/services/auth";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { List } from 'react-native-paper';
-import { useState } from 'react';
-import React from 'react';
+import { List } from "react-native-paper";
+import { useState } from "react";
+import React from "react";
 
 // Adicione aqui as telas que precisar
 import Home from "@/app/home";
@@ -28,6 +28,8 @@ import CadastroPessoal from "@/app/cadastropessoal";
 import CadastroAnimal from "./cadastroanimal";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import usuarioLogado from '@/app/usuariologado';
+
+
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -152,29 +154,39 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					title="Histórias de adoção"
 					onPress={() => navigation.navigate("")}
 					style={styles.item}
+         />
 
-				/>
-			</List.Accordion>
-			<List.Accordion
-				title="Configurações"
-				expanded={expanded === "config"}
-				onPress={() => handlePress("config")}
-				style={styles.accordionConfig}
-				left={props => <List.Icon {...props} icon={require('../assets/icons/settings.svg')} />}>
-			
+				<List.Accordion
+					title="Configurações"
+					expanded={expanded === "config"}
+					onPress={() => handlePress("config")}
+					style={styles.accordionConfig}
+					left={(props) => (
+						<List.Icon
+							{...props}
+							icon={require("../assets/icons/settings.svg")}
+						/>
+					)}
+				>
+					<List.Item
+						title="Privacidade"
+						onPress={() => navigation.navigate("CadastroPessoal")}
+						style={styles.item}
+					/>
+				</List.Accordion>
 				<List.Item
 					title="Privacidade"
 					onPress={() => navigation.navigate("")}
 					style={styles.item}
-
+        />
+        <List.Item
+					title="Sair"
+					style={styles.itemSair}
+					titleStyle={{ textAlign: "center" }}
 				/>
-			</List.Accordion>
-			<List.Item title="Sair"
-			style={styles.itemSair}
-			titleStyle={{textAlign:"center",}}/>
-		</List.Section>
-	</View>
-  );
+			</List.Section>
+		</View>
+	);
 };
 
 function usuarioLogadoScreens(){
@@ -253,47 +265,40 @@ export default function RootLayout() {
 
 const styles = StyleSheet.create({
 	screen: {
-	  flex: 1,
-	  justifyContent: 'center',
-	  alignItems: 'center',
-	  backgroundColor: '#f2f2f2',
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#f2f2f2",
 	},
 	text: {
-	  fontSize: 20,
-	  fontWeight: 'bold',
-	  color: '#333',
+		fontSize: 20,
+		fontWeight: "bold",
+		color: "#333",
 	},
 	drawerContainer: {
 		height: "100%",
 		paddingTop: 0,
 		borderRadius: 0,
-		marginTop: 0
+		marginTop: 0,
 	},
 	accordionPerfil: {
-		backgroundColor: '#88c9bf'
-
+		backgroundColor: "#88c9bf",
 	},
 	accordionAtalhos: {
-		backgroundColor: '#fee29b'
-
+		backgroundColor: "#fee29b",
 	},
 	accordionInfo: {
-		backgroundColor: '#cfe9e5'
-
+		backgroundColor: "#cfe9e5",
 	},
 	accordionConfig: {
-		backgroundColor: '#e6e7e8'
-
+		backgroundColor: "#e6e7e8",
 	},
 	itemSair: {
-		backgroundColor: '#88c9bf',
+		backgroundColor: "#88c9bf",
 		height: 48,
 		textAlign: "justify",
-
-
 	},
 	item: {
-		paddingLeft: 48
-
+		paddingLeft: 48,
 	},
-  });
+});
