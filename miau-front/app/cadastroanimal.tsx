@@ -91,7 +91,6 @@ export default function CadastroAnimal() {
 
 	return (
 		<Layout style={{ flex: 1 }}>
-			{TopNav("Cadastro Animal", "#fee29b")}
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
 				<Layout style={{ alignItems: "center" }}>
 					<Text style={styles.Text}>

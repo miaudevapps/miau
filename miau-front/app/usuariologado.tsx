@@ -8,28 +8,40 @@ export default function HomeScreen() {
 		<Layout style={{ flex: 1 }}>
 			<Layout style={{ alignItems: "center" }}>
 				<Text category="h1" style={styles.title}>
-					Olá!
+					Página de Links!
 				</Text>
 				<Text style={styles.description}>
-					Bem vindo ao Meau!{"\n"}
-					Aqui você pode adotar, doar e ajudar cães e gatos com facilidade.
-					{"\n"}
-					Qual o seu interesse?
+					Qual página deseja visitar?
 				</Text>
-				<Button style={styles.button} onPress={() => navigation.navigate("")}>
-					{(evaProps) => <Text style={styles.buttonText}>ADOTAR</Text>}
+				<Button style={styles.button} onPress={() => navigation.navigate("Home")}>
+					{(evaProps) => <Text style={styles.buttonText}>HOME</Text>}
 				</Button>
-				<Button style={styles.button}>
-					{(evaProps) => <Text style={styles.buttonText}>AJUDAR</Text>}
+				<Button style={styles.button} onPress={() => navigation.navigate("Cadastro")}>
+					{(evaProps) => (
+						<Text style={styles.buttonText}>PÁGINA DE CADASTRO</Text>
+					)}
 				</Button>
-				<Button style={styles.button} onPress={() => navigation.navigate("Cadastro Animal")}>
+                <Button style={styles.button} onPress={() => navigation.navigate("Login")}>
+					{(evaProps) => (
+						<Text style={styles.buttonText}>PÁGINA DE LOGIN</Text>
+					)}
+				</Button>
+                <Button style={styles.button} onPress={() => navigation.navigate("Cadastro Pessoal")}>
+					{(evaProps) => (
+						<Text style={styles.buttonText}>CADASTRO PESSOAL</Text>
+					)}
+				</Button>
+                <Button style={styles.button} onPress={() => navigation.navigate("Cadastro Animal")}>
 					{(evaProps) => (
 						<Text style={styles.buttonText}>CADASTRAR ANIMAL</Text>
 					)}
 				</Button>
-				<Button style={styles.loginButton} onPress={() => navigation.navigate("Login")}>
-					login
+                <Button style={styles.button} onPress={() => navigation.navigate("Cadastro Animal Feito")}>
+					{(evaProps) => (
+						<Text style={styles.buttonText}>CADASTRO ANIMAL FEITO</Text>
+					)}
 				</Button>
+
 				<Image
 					source={require("../assets/images/logo_colorida.png")}
 					style={styles.logo}

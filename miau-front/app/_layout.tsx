@@ -27,7 +27,9 @@ import Cadastro from "@/app/cadastro";
 import CadastroPessoal from "@/app/cadastropessoal";
 import CadastroAnimal from "./cadastroanimal";
 import cadastroanimalfeito from "./cadastroanimalfeito";
-import Index from "./index";
+import usuarioLogado from '@/app/usuariologado';
+
+
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -36,120 +38,124 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 	const [expanded, setExpanded] = useState<string | null>(null);
 	const handlePress = (section: string) => {
 		setExpanded(expanded === section ? null : section);
-	};
+	  };
 
-	return (
-		<View style={styles.drawerContainer}>
-			<Layout style={{ height: 124, backgroundColor: "#88c9bf" }}>
-				<Image
-					style={{
-						borderRadius: 100,
-						width: 64,
-						height: 64,
-						marginTop: 40,
-						marginLeft: 16,
-					}}
-					source={{
-						uri: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQP5QQKcY4t1-_XAOvt_5Ii9LGJqTDX0B7u5sOZJFeU8QCGJ2jReifGEDftXkScCw-lMm8nmFUYF2QXwMR2KrzTsw",
-					}}
+	return(
+	<View style={styles.drawerContainer}>
+		<Layout style={{height:124, backgroundColor:"#88c9bf",}}>
+			<Image
+			style={{borderRadius:100, width:64, height:64, marginTop:40, marginLeft:16}}
+			source={{
+			uri: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQP5QQKcY4t1-_XAOvt_5Ii9LGJqTDX0B7u5sOZJFeU8QCGJ2jReifGEDftXkScCw-lMm8nmFUYF2QXwMR2KrzTsw',
+			}}
+			/>	
+		</Layout>
+
+		<List.Section style={{marginVertical: -0,}}>
+			<List.Accordion
+				title="Emille Catarine"
+				style={styles.accordionPerfil}
+				expanded={expanded === "main"}
+				onPress={() => handlePress("main")
+				
+				}
+			>
+				<List.Item
+				title="Meu Perfil"
+				onPress={() => navigation.navigate("Usuário Logado")}
+				style={styles.item}
+
 				/>
-			</Layout>
+				<List.Item
+				title="Meus pets"
+				onPress={() => navigation.navigate("Home")}
+				style={styles.item}
 
-			<List.Section style={{ marginVertical: -0 }}>
-				<List.Accordion
-					title="Emille Catarine"
-					style={styles.accordionPerfil}
-					expanded={expanded === "main"}
-					onPress={() => handlePress("main")}
-				>
-					<List.Item
-						title="Meu Perfil"
-						onPress={() => navigation.navigate("Login")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Meus pets"
-						onPress={() => navigation.navigate("Home")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Favoritos"
-						onPress={() => navigation.navigate("Login")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Chat"
-						onPress={() => navigation.navigate("Home")}
-						style={styles.item}
-					/>
-				</List.Accordion>
+				/>
+				<List.Item
+				title="Favoritos"
+				onPress={() => navigation.navigate("Login")}
+				style={styles.item}
 
-				<List.Accordion
-					title="Atalhos"
-					expanded={expanded === "shortcuts"}
-					onPress={() => handlePress("shortcuts")}
-					style={styles.accordionAtalhos}
-					left={(props) => (
-						<List.Icon {...props} icon={require("../assets/icons/pets.svg")} />
-					)}
-				>
-					<List.Item
-						title="Cadastrar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Adotar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Ajudar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Apadrinhar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-				</List.Accordion>
+				/>
+				<List.Item
+				title="Chat"
+				onPress={() => navigation.navigate("Cadastro Pessoal")}
+				style={styles.item}
 
-				<List.Accordion
-					title="Informações"
-					expanded={expanded === "Informacoes"}
-					onPress={() => handlePress("Informacoes")}
-					style={styles.accordionInfo}
-					left={(props) => (
-						<List.Icon {...props} icon={require("../assets/icons/info.svg")} />
-					)}
-				>
-					<List.Item
-						title="Dicas"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Eventos"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Legislação"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Termo de adoção"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-					<List.Item
-						title="Histórias de adoção"
-						onPress={() => navigation.navigate("CadastroPessoal")}
-						style={styles.item}
-					/>
-				</List.Accordion>
+				/>
+			</List.Accordion>
+
+			<List.Accordion
+				title="Atalhos"
+				expanded={expanded === "shortcuts"}
+				onPress={() => handlePress("shortcuts")}
+				style={styles.accordionAtalhos}
+				left={props => <List.Icon {...props} icon={require('../assets/icons/pets.svg')} />}>
+			
+				<List.Item
+				title="Cadastrar um pet"
+				onPress={() => navigation.navigate("Cadastro")}
+				style={styles.item}
+
+				/>
+				<List.Item
+				title="Adotar um pet"
+				onPress={() => navigation.navigate("")}
+				style={styles.item}
+
+				/>
+				<List.Item
+				title="Ajudar um pet"
+				onPress={() => navigation.navigate("")}
+				style={styles.item}
+
+				/>
+				<List.Item
+				title="Apadrinhar um pet"
+				onPress={() => navigation.navigate("")}
+				style={styles.item}
+
+				/>
+			</List.Accordion>
+
+			<List.Accordion
+				title="Informações"
+				expanded={expanded === "Informacoes"}
+				onPress={() => handlePress("Informacoes")}
+				style={styles.accordionInfo}
+				left={props => <List.Icon {...props} icon={require('../assets/icons/info.svg')} />}>
+				
+				
+				<List.Item
+					title="Dicas"
+					onPress={() => navigation.navigate("")}
+					style={styles.item}
+				/>
+				<List.Item
+					title="Eventos"
+					onPress={() => navigation.navigate("")}
+					style={styles.item}
+
+				/>
+				<List.Item
+					title="Legislação"
+					onPress={() => navigation.navigate("")}
+					style={styles.item}
+
+				/>
+				<List.Item
+					title="Termo de adoção"
+					onPress={() => navigation.navigate("")}
+					style={styles.item}
+
+				/>
+				<List.Item
+					title="Histórias de adoção"
+					onPress={() => navigation.navigate("")}
+					style={styles.item}
+         />
+
 				<List.Accordion
 					title="Configurações"
 					expanded={expanded === "config"}
@@ -169,6 +175,11 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					/>
 				</List.Accordion>
 				<List.Item
+					title="Privacidade"
+					onPress={() => navigation.navigate("")}
+					style={styles.item}
+        />
+        <List.Item
 					title="Sair"
 					style={styles.itemSair}
 					titleStyle={{ textAlign: "center" }}
@@ -177,43 +188,29 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 		</View>
 	);
 };
-function stackScreens() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="Index" component={Index} />
-			<Stack.Screen
-				name="Home"
-				options={{ headerShown: false }}
-				component={Home}
-			/>
-			<Stack.Screen
-				name="login"
-				options={{ headerShown: false }}
-				component={Login}
-			/>
-			<Stack.Screen
-				name="cadastro"
-				options={{ headerShown: false }}
-				component={Cadastro}
-			/>
-			<Stack.Screen
-				name="cadastropessoal"
-				options={{ headerShown: false }}
-				component={CadastroPessoal}
-			/>
-			<Stack.Screen
-				name="cadastroanimal"
-				options={{ headerShown: false }}
-				component={CadastroAnimal}
-			/>
-			<Stack.Screen
-				name="cadastroanimalfeito"
-				options={{ headerShown: false }}
-				component={cadastroanimalfeito}
-			/>
-		</Stack.Navigator>
-	);
+
+function usuarioLogadoScreens(){
+	return(
+		<Drawer.Navigator initialRouteName="Home"
+		drawerContent={(props) => <HomeDrawer {...props} />}
+		screenOptions={{
+			drawerStyle: {
+				paddingTop: 0,
+				borderTopRightRadius: 0,
+				borderBottomRightRadius: 0,
+				marginTop: 0,
+			},
+			}}>
+			<Drawer.Group screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}
+			>
+				<Drawer.Screen name="Home" component={Home} />
+				<Drawer.Screen name="Usuário Logado" component={usuarioLogado}/>
+
+			</Drawer.Group>
+		</Drawer.Navigator>
+	)
 }
+
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
 		// Adicione aqui as fontes que precisar
@@ -232,40 +229,33 @@ export default function RootLayout() {
 					<SafeAreaView />
 					<IconRegistry icons={EvaIconsPack} />
 					<ApplicationProvider {...eva} theme={eva.light}>
-						<Drawer.Navigator
-							initialRouteName="Home"
-							drawerContent={(props) => <HomeDrawer {...props} />}
-							screenOptions={{
-								drawerStyle: {
-									paddingTop: 0,
-									borderTopRightRadius: 0,
-									borderBottomRightRadius: 0,
-									marginTop: 0,
-								},
-							}}
-						>
-							<Drawer.Group
-								screenOptions={{
-									headerStyle: { backgroundColor: "papayawhip" },
-								}}
-							>
-								<Drawer.Screen name="Login" component={Login} />
-								<Drawer.Screen
-									name="Home"
-									component={stackScreens}
-									options={{ headerShown: false }}
-								/>
-							</Drawer.Group>
-							<Drawer.Group
-								screenOptions={{ headerStyle: { backgroundColor: "red" } }}
-							>
-								<Drawer.Screen
-									name="Cadastro Pessoal"
-									component={CadastroPessoal}
-								/>
-								<Drawer.Screen name="Cadastro" component={Cadastro} />
-							</Drawer.Group>
-						</Drawer.Navigator>
+						<Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}>
+							<Stack.Screen
+							name="Home"
+							options={{ headerShown: false }}
+							component={usuarioLogadoScreens}
+							/>
+							<Stack.Screen
+							name="Login"
+							component={Login}
+							/>
+							<Stack.Screen
+							name="Cadastro"
+							component={Cadastro}
+							/>
+							<Stack.Screen
+							name="Cadastro Pessoal"
+							component={CadastroPessoal}
+							/>
+							<Stack.Screen
+							name="Cadastro Animal"
+							component={CadastroAnimal}
+							/>
+							<Stack.Screen
+							name="Cadastro Animal Feito"
+							component={cadastroanimalfeito}
+							/>
+						</Stack.Navigator>
 					</ApplicationProvider>
 				</SafeAreaProvider>
 			</SessionProvider>

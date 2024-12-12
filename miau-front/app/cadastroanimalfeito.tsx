@@ -6,7 +6,6 @@ import { TopNav } from "../components/navigation/TopNavegation";
 export default function cadastroanimalfeito() {
 	return (
 		<Layout style={{ flex: 1 }}>
-			{TopNav("Cadastro do Animal", "#fee29b")}
 			<Layout style={{ alignItems: "center" }}>
 				<Text category="h1" style={styles.title}>
 					Eba!
