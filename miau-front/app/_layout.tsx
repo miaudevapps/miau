@@ -23,6 +23,8 @@ import CadastroAnimal from "./cadastroanimal";
 import Cadastroanimalfeito from "./cadastroanimalfeito";
 import Adotaranimais from "./adotaranimais";
 import React from "react";
+import DetalhesPet from "./detalhesanimal";
+import DetalhesPetAdotar from "./detalhesanimaladotar";
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +82,16 @@ export default function RootLayout() {
 								name="adotaranimais"
 								options={{ headerShown: false }}
 								component={Adotaranimais}
+							/>
+							<Stack.Screen
+								name="detalhesanimal"
+								options={{ headerShown: false}}
+								component={DetalhesPet}
+							/>
+							<Stack.Screen
+								name="detalhesanimaladotar"
+								options={{ headerShown: false}}
+								component={DetalhesPetAdotar}
 							/>
 						</Stack.Navigator>
 					</ApplicationProvider>

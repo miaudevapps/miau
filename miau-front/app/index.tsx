@@ -17,6 +17,8 @@ export default function Index() {
 			<Link href="/cadastroanimal">Ver Cadastro Animal</Link>
 			<Link href="/cadastroanimalfeito">Ver Cadastro Animal</Link>
 			<Link href="/adotaranimais">Ver Adotar Animal</Link>
+			<Link href="/detalhesanimal">Ver Detalhes animal</Link>
+			<Link href="/detalhesanimaladotar">Ver Detalhes animal adotar</Link>
 		</View>
 	);
 }
