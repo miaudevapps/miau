@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
 import { createUser } from "@/services/users";
+import * as ImagePicker from "expo-image-picker";
+import { uploadImage } from "@/services/image";
 
 interface FormValues {
 	name: string;
@@ -19,6 +21,7 @@ interface FormValues {
 	username: string;
 	password: string;
 	confirmPassword: string;
+	image_url: string | null;
 }
 
 export default function CadastroPessoal() {
@@ -47,9 +50,27 @@ export default function CadastroPessoal() {
 		}
 	};
 
+	const [image, setImage] = useState<string | null>(null);
+	const [uploading, setUploading] = useState(false);
+	const pickImage = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ["images"],
+			allowsEditing: true,
+			aspect: [4, 3],
+			quality: 1,
+		});
+
+		console.log(result);
+
+		if (!result.canceled) {
+			setImage(result.assets[0].uri);
+		}
+	};
+
 	return (
 		<Layout style={{ flex: 1 }}>
 			{TopNav("Cadastro", "#cfe9e5")}
+
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
 				<Layout style={{ alignItems: "center" }}>
 					<Layout style={styles.box}>
@@ -228,9 +249,40 @@ export default function CadastroPessoal() {
 
 					{/* Foto de perfil */}
 					<Text style={styles.textBlue}>FOTO DE PERFIL</Text>
-					<Layout style={styles.photoBox}>
-						{/* Aqui você pode colocar o código para upload de foto */}
-					</Layout>
+					{image && (
+						<Image
+							source={{ uri: image }}
+							style={{ width: 170, height: 200 }}
+						/>
+					)}
+					<Button style={styles.button} onPress={pickImage}>
+						{(evaProps) => (
+							<Text style={styles.buttonText}>ADICIONAR FOTO</Text>
+						)}
+					</Button>
+					<Controller
+						control={control}
+						name="image_url"
+						render={({ field: { onChange } }) => (
+							<Button
+								style={styles.button}
+								onPress={async () => {
+									if (image) {
+										try {
+											const imageUrl = await uploadImage(image);
+											onChange(imageUrl);
+										} catch (error) {
+											console.error("Erro ao fazer upload da imagem", error);
+										}
+									}
+								}}
+							>
+								{(evaProps) => (
+									<Text style={styles.buttonText}>UPLOAD FOTO</Text>
+								)}
+							</Button>
+						)}
+					/>
 					<Button style={styles.button} onPress={handleSubmit(handleSignUp)}>
 						{(evaProps) => (
 							<Text style={styles.buttonText}>FAZER CADASTRO</Text>
