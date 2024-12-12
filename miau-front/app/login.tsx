@@ -6,7 +6,6 @@ import { useSession } from "../services/auth";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-
 export default function Login() {
 	const [isFocused, setIsFocused] = useState(false); // Estado para foco no campo
 
@@ -38,8 +37,6 @@ export default function Login() {
 
 	return (
 		<Layout style={{ flex: 1, alignItems: "center" }}>
-			{TopNav("Login", "#cfe9e5")}
-
 			<Layout style={{ marginTop: 64, marginBottom: 32 }}>
 				<Input
 					placeholder="Nome de usuário"

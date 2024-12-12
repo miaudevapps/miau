@@ -1,7 +1,10 @@
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Index() {
+	const navigation = useNavigation<any>();
+
 	return (
 		<View
 			style={{
@@ -10,12 +13,24 @@ export default function Index() {
 				alignItems: "center",
 			}}
 		>
-			<Link href="/home">Ver Home</Link>
-			<Link href="/login">Ver Login</Link>
-			<Link href="/cadastro">Ver Cadastro</Link>
-			<Link href="/cadastropessoal">Ver Cadastro Pessoal</Link>
-			<Link href="/cadastroanimal">Ver Cadastro Animal</Link>
-			<Link href="/cadastroanimalfeito">Ver Cadastro Animal</Link>
+			<Button title="Ver Home" onPress={() => navigation.navigate("Home")} />
+			<Button title="Ver Login" onPress={() => navigation.navigate("login")} />
+			<Button
+				title="Ver Cadastro"
+				onPress={() => navigation.navigate("cadastro")}
+			/>
+			<Button
+				title="Ver Cadastro Pessoal"
+				onPress={() => navigation.navigate("cadastropessoal")}
+			/>
+			<Button
+				title="Ver Cadastro Animal"
+				onPress={() => navigation.navigate("cadastroanimal")}
+			/>
+			<Button
+				title="Ver Cadastro Animal Feito"
+				onPress={() => navigation.navigate("cadastroanimalfeito")}
+			/>
 		</View>
 	);
 }
