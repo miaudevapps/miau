@@ -200,10 +200,7 @@ function usuarioLogadoScreens(){
 			>
 				<Drawer.Screen name="Home" component={Home} />
 				<Drawer.Screen name="Usuário Logado" component={usuarioLogado}/>
-				<Drawer.Screen
-							name="Cadastro Pessoal"
-							component={CadastroPessoal}
-							/>
+
 			</Drawer.Group>
 		</Drawer.Navigator>
 	)
@@ -232,6 +229,10 @@ export default function RootLayout() {
 							name="Home"
 							options={{ headerShown: false }}
 							component={usuarioLogadoScreens}
+							/>
+							<Stack.Screen
+								name="Cadastro Pessoal"
+								component={CadastroPessoal}
 							/>
 							<Stack.Screen
 							name="Login"
