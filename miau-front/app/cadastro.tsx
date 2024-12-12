@@ -2,7 +2,6 @@ import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { TopNav } from "../components/navigation/TopNavegation";
 
 export default function Cadastro() {
 	const navigation = useNavigation<any>();
@@ -20,7 +19,7 @@ export default function Cadastro() {
 				<Button
 					style={styles.button}
 					onPress={() => {
-						navigation.navigate("cadastropessoal");
+						navigation.navigate("Cadastro Pessoal");
 					}}
 				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER CADASTRO</Text>}
@@ -29,7 +28,7 @@ export default function Cadastro() {
 				<Button
 					style={styles.button}
 					onPress={() => {
-						navigation.navigate("login");
+						navigation.navigate("Login");
 					}}
 				>
 					{(evaProps) => <Text style={styles.buttonText}>FAZER LOGIN</Text>}

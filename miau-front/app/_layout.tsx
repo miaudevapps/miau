@@ -27,6 +27,7 @@ import Cadastro from "@/app/cadastro";
 import CadastroPessoal from "@/app/cadastropessoal";
 import CadastroAnimal from "./cadastroanimal";
 import cadastroanimalfeito from "./cadastroanimalfeito";
+import usuarioLogado from '@/app/usuariologado';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -38,8 +39,6 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 	  };
 
 	return(
-
-
 	<View style={styles.drawerContainer}>
 		<Layout style={{height:124, backgroundColor:"#88c9bf",}}>
 			<Image
@@ -61,7 +60,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 			>
 				<List.Item
 				title="Meu Perfil"
-				onPress={() => navigation.navigate("Login")}
+				onPress={() => navigation.navigate("Usuário Logado")}
 				style={styles.item}
 
 				/>
@@ -79,7 +78,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 				/>
 				<List.Item
 				title="Chat"
-				onPress={() => navigation.navigate("Home")}
+				onPress={() => navigation.navigate("Cadastro Pessoal")}
 				style={styles.item}
 
 				/>
@@ -94,25 +93,25 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 			
 				<List.Item
 				title="Cadastrar um pet"
-				onPress={() => navigation.navigate("CadastroPessoal")}
+				onPress={() => navigation.navigate("Cadastro")}
 				style={styles.item}
 
 				/>
 				<List.Item
 				title="Adotar um pet"
-				onPress={() => navigation.navigate("CadastroPessoal")}
+				onPress={() => navigation.navigate("")}
 				style={styles.item}
 
 				/>
 				<List.Item
 				title="Ajudar um pet"
-				onPress={() => navigation.navigate("CadastroPessoal")}
+				onPress={() => navigation.navigate("")}
 				style={styles.item}
 
 				/>
 				<List.Item
 				title="Apadrinhar um pet"
-				onPress={() => navigation.navigate("CadastroPessoal")}
+				onPress={() => navigation.navigate("")}
 				style={styles.item}
 
 				/>
@@ -128,30 +127,30 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 				
 				<List.Item
 					title="Dicas"
-					onPress={() => navigation.navigate("CadastroPessoal")}
+					onPress={() => navigation.navigate("")}
 					style={styles.item}
 				/>
 				<List.Item
 					title="Eventos"
-					onPress={() => navigation.navigate("CadastroPessoal")}
+					onPress={() => navigation.navigate("")}
 					style={styles.item}
 
 				/>
 				<List.Item
 					title="Legislação"
-					onPress={() => navigation.navigate("CadastroPessoal")}
+					onPress={() => navigation.navigate("")}
 					style={styles.item}
 
 				/>
 				<List.Item
 					title="Termo de adoção"
-					onPress={() => navigation.navigate("CadastroPessoal")}
+					onPress={() => navigation.navigate("")}
 					style={styles.item}
 
 				/>
 				<List.Item
 					title="Histórias de adoção"
-					onPress={() => navigation.navigate("CadastroPessoal")}
+					onPress={() => navigation.navigate("")}
 					style={styles.item}
 
 				/>
@@ -165,7 +164,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 			
 				<List.Item
 					title="Privacidade"
-					onPress={() => navigation.navigate("CadastroPessoal")}
+					onPress={() => navigation.navigate("")}
 					style={styles.item}
 
 				/>
@@ -177,44 +176,29 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 	</View>
   );
 };
-function stackScreens(){
-	return(
-	<Stack.Navigator>
-    <Stack.Screen name="Index" component={Index} />
-    <Stack.Screen
-      name="Home"
-      options={{ headerShown: false }}
-      component={Home}
-    />
-    <Stack.Screen
-      name="login"
-      options={{ headerShown: false }}
-      component={Login}
-    />
-    <Stack.Screen
-      name="cadastro"
-      options={{ headerShown: false }}
-      component={Cadastro}
-    />
-    <Stack.Screen
-      name="cadastropessoal"
-      options={{ headerShown: false }}
-      component={CadastroPessoal}
-    />
-    <Stack.Screen
-      name="cadastroanimal"
-      options={{ headerShown: false }}
-      component={CadastroAnimal}
-    />
-    <Stack.Screen
-      name="cadastroanimalfeito"
-      options={{ headerShown: false }}
-      component={cadastroanimalfeito}
-    />
-	</Stack.Navigator>
-	);
 
+function usuarioLogadoScreens(){
+	return(
+		<Drawer.Navigator initialRouteName="Home"
+		drawerContent={(props) => <HomeDrawer {...props} />}
+		screenOptions={{
+			drawerStyle: {
+				paddingTop: 0,
+				borderTopRightRadius: 0,
+				borderBottomRightRadius: 0,
+				marginTop: 0,
+			},
+			}}>
+			<Drawer.Group screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}
+			>
+				<Drawer.Screen name="Home" component={Home} />
+				<Drawer.Screen name="Usuário Logado" component={usuarioLogado}/>
+
+			</Drawer.Group>
+		</Drawer.Navigator>
+	)
 }
+
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
 		// Adicione aqui as fontes que precisar
@@ -233,30 +217,33 @@ export default function RootLayout() {
 					<SafeAreaView />
 					<IconRegistry icons={EvaIconsPack} />
 					<ApplicationProvider {...eva} theme={eva.light}>
-
-					
-					<Drawer.Navigator initialRouteName="Home"
-					drawerContent={(props) => <HomeDrawer {...props} />}
-					screenOptions={{
-						drawerStyle: {
-							paddingTop: 0,
-							borderTopRightRadius: 0,
-							borderBottomRightRadius: 0,
-							marginTop: 0,
-						},
-					  }}>
-						<Drawer.Group screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}
-						>
-							<Drawer.Screen name="Login" component={Login}/>
-							<Drawer.Screen name="Home" component={stackScreens} options={{headerShown:false}}/>
-						</Drawer.Group>
-						<Drawer.Group screenOptions={{ headerStyle: { backgroundColor: 'red' } }}
-						>			
-							<Drawer.Screen name="Cadastro Pessoal" component={CadastroPessoal}/>
-							<Drawer.Screen name="Cadastro" component={Cadastro}/>
-						</Drawer.Group>
-					</Drawer.Navigator>
-
+						<Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}>
+							<Stack.Screen
+							name="Home"
+							options={{ headerShown: false }}
+							component={usuarioLogadoScreens}
+							/>
+							<Stack.Screen
+							name="Login"
+							component={Login}
+							/>
+							<Stack.Screen
+							name="Cadastro"
+							component={Cadastro}
+							/>
+							<Stack.Screen
+							name="Cadastro Pessoal"
+							component={CadastroPessoal}
+							/>
+							<Stack.Screen
+							name="Cadastro Animal"
+							component={CadastroAnimal}
+							/>
+							<Stack.Screen
+							name="Cadastro Animal Feito"
+							component={cadastroanimalfeito}
+							/>
+						</Stack.Navigator>
 					</ApplicationProvider>
 				</SafeAreaProvider>
 			</SessionProvider>
