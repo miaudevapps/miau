@@ -31,6 +31,7 @@ import Adotaranimais from "./adotaranimais";
 import DetalhesPet from "./detalhesanimal";
 import DetalhesPetAdotar from "./detalhesanimaladotar";
 import Index from "./index";
+import usuarioLogado from "@/app/usuariologado";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -67,7 +68,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 				>
 					<List.Item
 						title="Meu Perfil"
-						onPress={() => navigation.navigate("Login")}
+						onPress={() => navigation.navigate("Usuário Logado")}
 						style={styles.item}
 					/>
 					<List.Item
@@ -82,7 +83,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					/>
 					<List.Item
 						title="Chat"
-						onPress={() => navigation.navigate("Home")}
+						onPress={() => navigation.navigate("Cadastro Pessoal")}
 						style={styles.item}
 					/>
 				</List.Accordion>
@@ -98,22 +99,22 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 				>
 					<List.Item
 						title="Cadastrar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("Cadastro")}
 						style={styles.item}
 					/>
 					<List.Item
 						title="Adotar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 					<List.Item
 						title="Ajudar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 					<List.Item
 						title="Apadrinhar um pet"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 				</List.Accordion>
@@ -129,27 +130,27 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 				>
 					<List.Item
 						title="Dicas"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 					<List.Item
 						title="Eventos"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 					<List.Item
 						title="Legislação"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 					<List.Item
 						title="Termo de adoção"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 					<List.Item
 						title="Histórias de adoção"
-						onPress={() => navigation.navigate("CadastroPessoal")}
+						onPress={() => navigation.navigate("")}
 						style={styles.item}
 					/>
 				</List.Accordion>
@@ -232,6 +233,31 @@ function stackScreens() {
 		</Stack.Navigator>
 	);
 }
+
+function usuarioLogadoScreens() {
+	return (
+		<Drawer.Navigator
+			initialRouteName="Home"
+			drawerContent={(props) => <HomeDrawer {...props} />}
+			screenOptions={{
+				drawerStyle: {
+					paddingTop: 0,
+					borderTopRightRadius: 0,
+					borderBottomRightRadius: 0,
+					marginTop: 0,
+				},
+			}}
+		>
+			<Drawer.Group
+				screenOptions={{ headerStyle: { backgroundColor: "#cfe9e5" } }}
+			>
+				<Drawer.Screen name="Home" component={Home} />
+				<Drawer.Screen name="Usuário Logado" component={usuarioLogado} />
+			</Drawer.Group>
+		</Drawer.Navigator>
+	);
+}
+
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
 		// Adicione aqui as fontes que precisar
@@ -250,40 +276,59 @@ export default function RootLayout() {
 					<SafeAreaView />
 					<IconRegistry icons={EvaIconsPack} />
 					<ApplicationProvider {...eva} theme={eva.light}>
-						<Drawer.Navigator
-							initialRouteName="Home"
-							drawerContent={(props) => <HomeDrawer {...props} />}
-							screenOptions={{
-								drawerStyle: {
-									paddingTop: 0,
-									borderTopRightRadius: 0,
-									borderBottomRightRadius: 0,
-									marginTop: 0,
-								},
-							}}
+						<Stack.Navigator
+							screenOptions={{ headerStyle: { backgroundColor: "#cfe9e5" } }}
 						>
-							<Drawer.Group
-								screenOptions={{
-									headerStyle: { backgroundColor: "papayawhip" },
-								}}
+							<Stack.Screen
+								name="Home"
+								options={{ headerShown: false }}
+								component={usuarioLogadoScreens}
+							/>
+							<Stack.Screen
+								name="Cadastro Pessoal"
+								component={CadastroPessoal}
+							/>
+							<Stack.Screen name="Login" component={Login} />
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#88c9bf" } }}
 							>
-								<Drawer.Screen name="Login" component={Login} />
-								<Drawer.Screen
-									name="Home"
-									component={stackScreens}
-									options={{ headerShown: false }}
-								/>
-							</Drawer.Group>
-							<Drawer.Group
-								screenOptions={{ headerStyle: { backgroundColor: "red" } }}
+								<Stack.Screen name="Cadastro" component={Cadastro} />
+							</Stack.Group>
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#ffd358" } }}
 							>
-								<Drawer.Screen
-									name="Cadastro Pessoal"
-									component={CadastroPessoal}
+								<Stack.Screen
+									name="Cadastro Animal"
+									component={CadastroAnimal}
 								/>
-								<Drawer.Screen name="Cadastro" component={Cadastro} />
-							</Drawer.Group>
-						</Drawer.Navigator>
+							</Stack.Group>
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#fee29b" } }}
+							>
+								<Stack.Screen
+									name="Cadastro Animal Feito"
+									component={Cadastroanimalfeito}
+								/>
+							</Stack.Group>
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#cfe9e5" } }}
+							>
+								<Stack.Screen name="Adotar Animais" component={Adotaranimais} />
+							</Stack.Group>
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#cfe9e5" } }}
+							>
+								<Stack.Screen name="Detalhes Pet" component={DetalhesPet} />
+							</Stack.Group>
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#cfe9e5" } }}
+							>
+								<Stack.Screen
+									name="Detalhes Pet Adotar"
+									component={DetalhesPetAdotar}
+								/>
+							</Stack.Group>
+						</Stack.Navigator>
 					</ApplicationProvider>
 				</SafeAreaProvider>
 			</SessionProvider>

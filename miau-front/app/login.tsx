@@ -1,7 +1,6 @@
 import { Layout, Text, Button, Input } from "@ui-kitten/components";
 import { Image, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
-import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
