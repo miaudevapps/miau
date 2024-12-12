@@ -174,11 +174,6 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 						style={styles.item}
 					/>
 				</List.Accordion>
-				<List.Item
-					title="Privacidade"
-					onPress={() => navigation.navigate("")}
-					style={styles.item}
-        />
         <List.Item
 					title="Sair"
 					style={styles.itemSair}
@@ -201,11 +196,14 @@ function usuarioLogadoScreens(){
 				marginTop: 0,
 			},
 			}}>
-			<Drawer.Group screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}
+			<Drawer.Group screenOptions={{ headerStyle: { backgroundColor: '#cfe9e5' } }}
 			>
 				<Drawer.Screen name="Home" component={Home} />
 				<Drawer.Screen name="Usuário Logado" component={usuarioLogado}/>
-
+				<Drawer.Screen
+							name="Cadastro Pessoal"
+							component={CadastroPessoal}
+							/>
 			</Drawer.Group>
 		</Drawer.Navigator>
 	)
@@ -229,7 +227,7 @@ export default function RootLayout() {
 					<SafeAreaView />
 					<IconRegistry icons={EvaIconsPack} />
 					<ApplicationProvider {...eva} theme={eva.light}>
-						<Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: 'papayawhip' } }}>
+						<Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: '#cfe9e5' } }}>
 							<Stack.Screen
 							name="Home"
 							options={{ headerShown: false }}
@@ -239,22 +237,24 @@ export default function RootLayout() {
 							name="Login"
 							component={Login}
 							/>
-							<Stack.Screen
-							name="Cadastro"
-							component={Cadastro}
-							/>
-							<Stack.Screen
-							name="Cadastro Pessoal"
-							component={CadastroPessoal}
-							/>
-							<Stack.Screen
-							name="Cadastro Animal"
-							component={CadastroAnimal}
-							/>
-							<Stack.Screen
-							name="Cadastro Animal Feito"
-							component={cadastroanimalfeito}
-							/>
+							<Stack.Group screenOptions={{ headerStyle: { backgroundColor: '#88c9bf' } }}>
+								<Stack.Screen
+								name="Cadastro"
+								component={Cadastro}
+								/>
+							</Stack.Group>
+							<Stack.Group screenOptions={{ headerStyle: { backgroundColor: '#ffd358' } }}>
+								<Stack.Screen
+								name="Cadastro Animal"
+								component={CadastroAnimal}
+								/>
+							</Stack.Group>
+							<Stack.Group screenOptions={{ headerStyle: { backgroundColor: '#fee29b' } }}>
+								<Stack.Screen
+								name="Cadastro Animal Feito"
+								component={cadastroanimalfeito}
+								/>
+							</Stack.Group>
 						</Stack.Navigator>
 					</ApplicationProvider>
 				</SafeAreaProvider>
