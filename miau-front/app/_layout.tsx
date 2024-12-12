@@ -181,59 +181,6 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 		</View>
 	);
 };
-function stackScreens() {
-	return (
-		<Stack.Navigator>
-			<Stack.Screen name="Index" component={Index} />
-			<Stack.Screen
-				name="Home"
-				options={{ headerShown: false }}
-				component={Home}
-			/>
-			<Stack.Screen
-				name="login"
-				options={{ headerShown: false }}
-				component={Login}
-			/>
-			<Stack.Screen
-				name="cadastro"
-				options={{ headerShown: false }}
-				component={Cadastro}
-			/>
-			<Stack.Screen
-				name="cadastropessoal"
-				options={{ headerShown: false }}
-				component={CadastroPessoal}
-			/>
-			<Stack.Screen
-				name="cadastroanimal"
-				options={{ headerShown: false }}
-				component={CadastroAnimal}
-			/>
-			<Stack.Screen
-				name="cadastroanimalfeito"
-				options={{ headerShown: false }}
-				component={Cadastroanimalfeito}
-			/>
-			<Stack.Screen
-				name="adotaranimais"
-				options={{ headerShown: false }}
-				component={Adotaranimais}
-			/>
-			<Stack.Screen
-				name="detalhesanimal"
-				options={{ headerShown: false }}
-				component={DetalhesPet}
-			/>
-			<Stack.Screen
-				name="detalhesanimaladotar"
-				options={{ headerShown: false }}
-				component={DetalhesPetAdotar}
-			/>
-		</Stack.Navigator>
-	);
-}
-
 function usuarioLogadoScreens() {
 	return (
 		<Drawer.Navigator

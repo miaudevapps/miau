@@ -18,7 +18,7 @@ export default function HomeScreen() {
 				</Text>
 				<Button
 					style={styles.button}
-					onPress={() => navigation.navigate("adotaranimais")}
+					onPress={() => navigation.navigate("Adotar Animais")}
 				>
 					{(evaProps) => <Text style={styles.buttonText}>ADOTAR</Text>}
 				</Button>

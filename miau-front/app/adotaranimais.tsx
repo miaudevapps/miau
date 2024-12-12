@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Text, Button } from "@ui-kitten/components";
 import { Image, StyleSheet, ScrollView, View } from "react-native";
 import { getAnImals } from "@/services/animals";
+import { useNavigation } from "@react-navigation/native";
 
 /* [
   {
@@ -28,6 +29,8 @@ import { getAnImals } from "@/services/animals";
 ] */
 
 export default function Adotaranimais() {
+	const navigation = useNavigation<any>();
+
 	const [animals, setAnimals] = useState<any[]>([]);
 
 	useEffect(() => {
@@ -53,7 +56,11 @@ export default function Adotaranimais() {
 						</Text>
 						<Button
 							style={styles.button}
-							onPress={() => console.log(`Detalhes de ${animal.name}`)}
+							onPress={() =>
+								navigation.navigate("Detalhes Pet", {
+									animalID: animal.animalID,
+								})
+							}
 						>
 							Ver Mais
 						</Button>

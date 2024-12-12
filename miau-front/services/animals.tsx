@@ -51,4 +51,9 @@ export const getAnimal = async (AnimalId: string) => {
 	const docRef = doc(db, "Animals", AnimalId);
 	// doc data
 	const docSnap = await getDocFromCache(docRef);
+	if (docSnap.exists()) {
+		return docSnap.data();
+	} else {
+		console.log("No such document!");
+	}
 };
