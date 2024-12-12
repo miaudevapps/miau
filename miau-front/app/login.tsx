@@ -4,10 +4,7 @@ import { useState } from "react";
 import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
-import {
-	createStaticNavigation,
-	useNavigation,
-} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 
 export default function Login() {
@@ -41,6 +38,8 @@ export default function Login() {
 
 	return (
 		<Layout style={{ flex: 1, alignItems: "center" }}>
+			{TopNav("Login", "#cfe9e5")}
+
 			<Layout style={{ marginTop: 64, marginBottom: 32 }}>
 				<Input
 					placeholder="Nome de usuário"

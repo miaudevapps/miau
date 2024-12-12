@@ -25,6 +25,8 @@ import Home from "@/app/home";
 import Login from "@/app/login";
 import Cadastro from "@/app/cadastro";
 import CadastroPessoal from "@/app/cadastropessoal";
+import CadastroAnimal from "./cadastroanimal";
+import cadastroanimalfeito from "./cadastroanimalfeito";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -178,22 +180,37 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 function stackScreens(){
 	return(
 	<Stack.Navigator>
-		<Stack.Screen
-			name="Home"
-			component={Home}
-		/>
-		<Stack.Screen
-			name="login"
-			component={Login}
-		/>
-		<Stack.Screen
-			name="cadastro"
-			component={Cadastro}
-		/>
-		<Stack.Screen
-			name="cadastropessoal"
-			component={CadastroPessoal}
-		/>
+    <Stack.Screen name="Index" component={Index} />
+    <Stack.Screen
+      name="Home"
+      options={{ headerShown: false }}
+      component={Home}
+    />
+    <Stack.Screen
+      name="login"
+      options={{ headerShown: false }}
+      component={Login}
+    />
+    <Stack.Screen
+      name="cadastro"
+      options={{ headerShown: false }}
+      component={Cadastro}
+    />
+    <Stack.Screen
+      name="cadastropessoal"
+      options={{ headerShown: false }}
+      component={CadastroPessoal}
+    />
+    <Stack.Screen
+      name="cadastroanimal"
+      options={{ headerShown: false }}
+      component={CadastroAnimal}
+    />
+    <Stack.Screen
+      name="cadastroanimalfeito"
+      options={{ headerShown: false }}
+      component={cadastroanimalfeito}
+    />
 	</Stack.Navigator>
 	);
 
@@ -216,6 +233,7 @@ export default function RootLayout() {
 					<SafeAreaView />
 					<IconRegistry icons={EvaIconsPack} />
 					<ApplicationProvider {...eva} theme={eva.light}>
+
 					
 					<Drawer.Navigator initialRouteName="Home"
 					drawerContent={(props) => <HomeDrawer {...props} />}
@@ -238,6 +256,7 @@ export default function RootLayout() {
 							<Drawer.Screen name="Cadastro" component={Cadastro}/>
 						</Drawer.Group>
 					</Drawer.Navigator>
+
 					</ApplicationProvider>
 				</SafeAreaProvider>
 			</SessionProvider>

@@ -3,34 +3,76 @@ import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useForm, Controller } from "react-hook-form";
+import { createUser } from "@/services/users";
+import * as ImagePicker from "expo-image-picker";
+import { uploadImage } from "@/services/image";
+
+interface FormValues {
+	name: string;
+	age: string;
+	email: string;
+	state: string;
+	city: string;
+	address: string;
+	phone: string;
+	username: string;
+	password: string;
+	confirmPassword: string;
+	image_url: string | null;
+}
 
 export default function CadastroPessoal() {
-	const [formState, setFormState] = React.useState({
-		email: "",
-		password: "",
-	});
 	const { signUp, isLoading } = useSession();
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+		watch,
+	} = useForm<FormValues>();
+	const [submittedData, setSubmittedData] = useState<FormValues | null>(null);
+	const navigation = useNavigation<any>();
 
-	const handleFormChange = (key: string, value: string) => {
-		setFormState({
-			...formState,
-			[key]: value,
-		});
-	};
+	const user = useSession().user;
 
-	const handleSignUp = async () => {
+	const handleSignUp = async (data: FormValues) => {
 		try {
-			await signUp(formState.email, formState.password);
+			setSubmittedData(data);
+			await signUp(data.email, data.password);
+			console.log(user);
+			const { password, confirmPassword, ...userData } = data;
+			await createUser(user.uid, userData);
+			navigation.navigate("Home");
 		} catch (error) {
 			console.error("Erro ao criar usuário", error);
 		}
 	};
 
+	const [image, setImage] = useState<string | null>(null);
+	const [uploading, setUploading] = useState(false);
+	const pickImage = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ["images"],
+			allowsEditing: true,
+			aspect: [4, 3],
+			quality: 1,
+		});
+
+		console.log(result);
+
+		if (!result.canceled) {
+			setImage(result.assets[0].uri);
+		}
+	};
+
 	return (
 		<Layout style={{ flex: 1 }}>
+			{TopNav("Cadastro", "#cfe9e5")}
+
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
 				<Layout style={{ alignItems: "center" }}>
-					{/* Caixa com o texto informativo */}
 					<Layout style={styles.box}>
 						<Text style={styles.boxText}>
 							As informações preenchidas serão divulgadas{"\n"}
@@ -44,64 +86,204 @@ export default function CadastroPessoal() {
 					<Text style={styles.textBlue}>INFORMAÇÕES PESSOAIS</Text>
 
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Nome Completo" />
-					</Layout>
-					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Idade" />
-					</Layout>
-					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="E-mail"
-							onChangeText={(value) => handleFormChange("email", value)}
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Nome Completo"
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="name"
+							rules={{ required: "Você precisa cadastrar um nome" }}
 						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Estado" />
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Idade"
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="age"
+							rules={{ required: "Você precisa cadastrar uma idade" }}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Cidade" />
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="E-mail"
+									onChangeText={onChange}
+									value={value}
+									keyboardType="email-address"
+								/>
+							)}
+							name="email"
+							rules={{ required: "Você precisa cadastrar um e-mail" }}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Endereço" />
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Estado"
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="state"
+							rules={{ required: "Você precisa cadastrar um estado" }}
+						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput style={styles.inputField} placeholder="Telefone" />
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Cidade"
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="city"
+							rules={{ required: "Você precisa cadastrar uma cidade" }}
+						/>
 					</Layout>
-
-					{/* Informações de perfil */}
+					<Layout style={styles.inputContainer}>
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Endereço"
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="address"
+							rules={{ required: "Você precisa cadastrar um endereço" }}
+						/>
+					</Layout>
+					<Layout style={styles.inputContainer}>
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Telefone"
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="phone"
+							rules={{ required: "Você precisa cadastrar um telefone" }}
+						/>
+					</Layout>
 					<Text style={styles.textBlue}>INFORMAÇÕES DE PERFIL</Text>
 					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="Nome de Usuário"
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Nome de Usuário"
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="username"
+							rules={{ required: "Você precisa cadastrar um nome de usuário" }}
 						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="Senha"
-							onChangeText={(value) => handleFormChange("password", value)}
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Senha"
+									onChangeText={onChange}
+									value={value}
+									secureTextEntry
+								/>
+							)}
+							name="password"
+							rules={{ required: "Você precisa cadastrar uma senha" }}
 						/>
 					</Layout>
 					<Layout style={styles.inputContainer}>
-						<TextInput
-							style={styles.inputField}
-							placeholder="Confirmação de senha"
+						<Controller
+							control={control}
+							render={({ field: { onChange, value } }) => (
+								<TextInput
+									style={styles.inputField}
+									placeholder="Confirmação de senha"
+									secureTextEntry
+									onChangeText={onChange}
+									value={value}
+								/>
+							)}
+							name="confirmPassword"
+							rules={{
+								required: "Você precisa confirmar a senha",
+								validate: (value) => {
+									return (
+										value === watch("password") || "As senhas não coincidem"
+									);
+								},
+							}}
 						/>
 					</Layout>
 
 					{/* Foto de perfil */}
 					<Text style={styles.textBlue}>FOTO DE PERFIL</Text>
-					<Layout style={styles.photoBox}>
-						{/* Aqui você pode colocar o código para upload de foto */}
-					</Layout>
-					<Button
-						style={styles.button}
-						onPress={() => {
-							handleSignUp();
-						}}
-					>
+					{image && (
+						<Image
+							source={{ uri: image }}
+							style={{ width: 170, height: 200 }}
+						/>
+					)}
+					<Button style={styles.button} onPress={pickImage}>
+						{(evaProps) => (
+							<Text style={styles.buttonText}>ADICIONAR FOTO</Text>
+						)}
+					</Button>
+					<Controller
+						control={control}
+						name="image_url"
+						render={({ field: { onChange } }) => (
+							<Button
+								style={styles.button}
+								onPress={async () => {
+									if (image) {
+										try {
+											const imageUrl = await uploadImage(image);
+											onChange(imageUrl);
+										} catch (error) {
+											console.error("Erro ao fazer upload da imagem", error);
+										}
+									}
+								}}
+							>
+								{(evaProps) => (
+									<Text style={styles.buttonText}>UPLOAD FOTO</Text>
+								)}
+							</Button>
+						)}
+					/>
+					<Button style={styles.button} onPress={handleSubmit(handleSignUp)}>
 						{(evaProps) => (
 							<Text style={styles.buttonText}>FAZER CADASTRO</Text>
 						)}
