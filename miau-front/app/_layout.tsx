@@ -155,7 +155,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					onPress={() => navigation.navigate("")}
 					style={styles.item}
          />
-
+				</List.Accordion>
 				<List.Accordion
 					title="Configurações"
 					expanded={expanded === "config"}
