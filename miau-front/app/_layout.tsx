@@ -20,11 +20,9 @@ import Login from "@/app/login";
 import Cadastro from "@/app/cadastro";
 import CadastroPessoal from "@/app/cadastropessoal";
 import CadastroAnimal from "./cadastroanimal";
-import cadastroanimalfeito from "./cadastroanimalfeito";
-import adotaranimal from "./adotaranimais";
-import Adotaranimal from "./adotaranimais";
 import Cadastroanimalfeito from "./cadastroanimalfeito";
 import Adotaranimais from "./adotaranimais";
+import React from "react";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,7 +47,7 @@ export default function RootLayout() {
 						<Stack.Navigator initialRouteName="Index">
 							<Stack.Screen name="Index" component={Index} />
 							<Stack.Screen
-								name="Home"
+								name="home"
 								options={{ headerShown: false }}
 								component={Home}
 							/>
@@ -79,7 +77,7 @@ export default function RootLayout() {
 								component={Cadastroanimalfeito}
 							/>
 							<Stack.Screen
-								name="adotaranimal"
+								name="adotaranimais"
 								options={{ headerShown: false }}
 								component={Adotaranimais}
 							/>

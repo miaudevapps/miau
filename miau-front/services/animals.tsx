@@ -1,4 +1,4 @@
-import { doc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, deleteDoc, collection, getDocs, getDocFromCache } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 import { useSession } from "./auth";
 
@@ -27,4 +27,21 @@ export const deleteAnimal = async (AnimalId: string) => {
 	} catch (error) {
 		console.error("Erro ao deletar usuário na tabela Animal", error);
 	}
+};
+
+export const getAnImals = async () => {
+	const { user } = useSession();
+	const AnimalList: any[] = [];
+	const querySnapshot = await getDocs(collection(db, "Animals"));
+	querySnapshot.forEach((doc) => {
+		const data = doc.data();
+		AnimalList.push(data);
+	});
+	return AnimalList;
+}
+
+export const getAnimal = async (AnimalId: string) => {
+	const docRef = doc(db, "Animals", AnimalId);
+	// doc data
+	const docSnap = await  getDocFromCache(docRef);
 };
