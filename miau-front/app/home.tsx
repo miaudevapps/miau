@@ -5,7 +5,6 @@ import { Image, StyleSheet } from "react-native";
 export default function HomeScreen() {
 	return (
 		<Layout style={{ flex: 1 }}>
-			<Icon name="menu-outline" style={styles.menuIcon} fill="#88c9bf" />
 			<Layout style={{ alignItems: "center" }}>
 				<Text category="h1" style={styles.title}>
 					Olá!
