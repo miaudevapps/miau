@@ -69,7 +69,7 @@ export default function CadastroAnimal() {
 			const animalId = Math.random().toString(36).substring(7);
 			data.animalID = animalId;
 			await createAnimal(animalId, data);
-			navigation.navigate("Home");
+			navigation.navigate("Cadastro Animal Feito");
 		} catch (error) {
 			console.error("Erro ao cadastrar animal", error);
 		}

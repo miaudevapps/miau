@@ -104,7 +104,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					/>
 					<List.Item
 						title="Adotar um pet"
-						onPress={() => navigation.navigate("")}
+						onPress={() => navigation.navigate("Adotaranimais")}
 						style={styles.item}
 					/>
 					<List.Item
