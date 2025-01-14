@@ -1,7 +1,7 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Image, StyleSheet } from "react-native";
 
-export default function cadastroanimalfeito() {
+export default function Cadastroanimalfeito() {
 	return (
 		<Layout style={{ flex: 1 }}>
 			<Layout style={{ alignItems: "center" }}>

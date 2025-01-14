@@ -16,18 +16,27 @@ export default function HomeScreen() {
 					{"\n"}
 					Qual o seu interesse?
 				</Text>
-				<Button style={styles.button} onPress={() => navigation.navigate("")}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("adotaranimais")}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>ADOTAR</Text>}
 				</Button>
-				<Button style={styles.button}>
+				<Button style={styles.button} onPress={() => navigation.navigate("")}>
 					{(evaProps) => <Text style={styles.buttonText}>AJUDAR</Text>}
 				</Button>
-				<Button style={styles.button} onPress={() => navigation.navigate("Cadastro Animal")}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Cadastro Animal")}
+				>
 					{(evaProps) => (
 						<Text style={styles.buttonText}>CADASTRAR ANIMAL</Text>
 					)}
 				</Button>
-				<Button style={styles.loginButton} onPress={() => navigation.navigate("Login")}>
+				<Button
+					style={styles.loginButton}
+					onPress={() => navigation.navigate("Login")}
+				>
 					login
 				</Button>
 				<Image

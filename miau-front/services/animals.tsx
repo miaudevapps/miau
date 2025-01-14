@@ -1,4 +1,12 @@
-import { doc, setDoc, updateDoc, deleteDoc, getDoc, getDocs, collection } from "firebase/firestore";
+import {
+	doc,
+	setDoc,
+	updateDoc,
+	deleteDoc,
+	getDoc,
+	getDocs,
+	collection,
+} from "firebase/firestore";
 import { db } from "./firebaseconfig";
 import { useSession } from "./auth";
 
@@ -31,36 +39,36 @@ export const deleteAnimal = async (AnimalId: string) => {
 
 export const getAnimal = async (AnimalId: string) => {
 	try {
-	  const docRef = doc(db, "Animals", AnimalId);
-	  const docSnap = await getDoc(docRef);
-  
-	  if (docSnap.exists()) {
-		console.log("Animal encontrado:", docSnap.data());
-		return docSnap.data(); // Return the animal data
-	  } else {
-		console.log("Animal não encontrado!");
-		return null; // Or throw an error if you prefer
-	  }
-	} catch (error) {
-	  console.error("Erro ao buscar animal:", error);
-	  return null; // Or throw an error if you prefer
-	}
-  };
+		const docRef = doc(db, "Animals", AnimalId);
+		const docSnap = await getDoc(docRef);
 
-  export const getAllAnimals = async () => {
-	try {
-	  const animalsCollection = collection(db, "Animals");
-	  const querySnapshot = await getDocs(animalsCollection);
-  
-	  const animals = querySnapshot.docs.map((doc) => ({
-		id: doc.id,
-		...doc.data(),
-	  }));
-  
-	  console.log("Todos os animais:", animals);
-	  return animals; // Return the array of animal data
+		if (docSnap.exists()) {
+			console.log("Animal encontrado:", docSnap.data());
+			return docSnap.data(); // Return the animal data
+		} else {
+			console.log("Animal não encontrado!");
+			return null; // Or throw an error if you prefer
+		}
 	} catch (error) {
-	  console.error("Erro ao buscar todos os animais:", error);
-	  return []; // Or throw an error if you prefer
+		console.error("Erro ao buscar animal:", error);
+		return null; // Or throw an error if you prefer
 	}
-  };
+};
+
+export const getAllAnimals = async () => {
+	try {
+		const animalsCollection = collection(db, "Animals");
+		const querySnapshot = await getDocs(animalsCollection);
+
+		const animals = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
+
+		console.log("Todos os animais:", animals);
+		return animals; // Return the array of animal data
+	} catch (error) {
+		console.error("Erro ao buscar todos os animais:", error);
+		return []; // Or throw an error if you prefer
+	}
+};

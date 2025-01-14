@@ -30,6 +30,18 @@ export default function Index() {
 				title="Ver Cadastro Animal Feito"
 				onPress={() => navigation.navigate("cadastroanimalfeito")}
 			/>
+			<Button
+				title="Ver Adotar Animais"
+				onPress={() => navigation.navigate("adotaranimais")}
+			/>
+			<Button
+				title="Ver Detalhes Animal"
+				onPress={() => navigation.navigate("detalhesanimal")}
+			/>
+			<Button
+				title="detalhesanimaladotar"
+				onPress={() => navigation.navigate("detalhesanimaladotar")}
+			/>
 		</View>
 	);
 }

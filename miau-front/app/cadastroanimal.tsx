@@ -28,6 +28,7 @@ interface FormValues {
 	exigencias: string[];
 	tempo_acompanhamento: string;
 	userId?: string;
+	animalID?: string;
 	image_url: string | null;
 }
 
@@ -51,6 +52,7 @@ export default function CadastroAnimal() {
 			exigencias: [],
 			tempo_acompanhamento: "",
 			userId: user?.uid,
+			animalID: "",
 			image_url: null,
 		},
 	});
@@ -64,6 +66,7 @@ export default function CadastroAnimal() {
 			console.log(data);
 			// criar id aleatório para o animal
 			const animalId = Math.random().toString(36).substring(7);
+			data.animalID = animalId;
 			await createAnimal(animalId, data);
 			navigation.navigate("Home");
 		} catch (error) {
