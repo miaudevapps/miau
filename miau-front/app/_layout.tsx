@@ -32,6 +32,8 @@ import DetalhesPet from "./detalhesanimal";
 import DetalhesPetAdotar from "./detalhesanimaladotar";
 import Index from "./index";
 import usuarioLogado from "@/app/usuariologado";
+import cadastroanimalfeito from "./cadastroanimalfeito";
+import meusPets from "@/app/meuspets";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -200,6 +202,7 @@ function usuarioLogadoScreens() {
 			>
 				<Drawer.Screen name="Home" component={Home} />
 				<Drawer.Screen name="Usuário Logado" component={usuarioLogado} />
+				<Drawer.Screen name="Meus Pets" component={meusPets} />
 			</Drawer.Group>
 		</Drawer.Navigator>
 	);

@@ -3,9 +3,9 @@ import {
 	setDoc,
 	updateDoc,
 	deleteDoc,
-	collection,
+	getDoc,
 	getDocs,
-	getDocFromCache,
+	collection,
 } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 import { useSession } from "./auth";
@@ -37,23 +37,38 @@ export const deleteAnimal = async (AnimalId: string) => {
 	}
 };
 
-export const getAnImals = async () => {
-	const AnimalList: any[] = [];
-	const querySnapshot = await getDocs(collection(db, "Animals"));
-	querySnapshot.forEach((doc) => {
-		const data = doc.data();
-		AnimalList.push(data);
-	});
-	return AnimalList;
+export const getAnimal = async (AnimalId: string) => {
+	try {
+		const docRef = doc(db, "Animals", AnimalId);
+		const docSnap = await getDoc(docRef);
+
+		if (docSnap.exists()) {
+			console.log("Animal encontrado:", docSnap.data());
+			return docSnap.data(); // Return the animal data
+		} else {
+			console.log("Animal não encontrado!");
+			return null; // Or throw an error if you prefer
+		}
+	} catch (error) {
+		console.error("Erro ao buscar animal:", error);
+		return null; // Or throw an error if you prefer
+	}
 };
 
-export const getAnimal = async (AnimalId: string) => {
-	const docRef = doc(db, "Animals", AnimalId);
-	// doc data
-	const docSnap = await getDocFromCache(docRef);
-	if (docSnap.exists()) {
-		return docSnap.data();
-	} else {
-		console.log("No such document!");
+export const getAllAnimals = async () => {
+	try {
+		const animalsCollection = collection(db, "Animals");
+		const querySnapshot = await getDocs(animalsCollection);
+
+		const animals = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
+
+		console.log("Todos os animais:", animals);
+		return animals; // Return the array of animal data
+	} catch (error) {
+		console.error("Erro ao buscar todos os animais:", error);
+		return []; // Or throw an error if you prefer
 	}
 };

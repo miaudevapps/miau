@@ -8,7 +8,6 @@ import {
 	CheckBox,
 } from "@ui-kitten/components";
 import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
-import { TopNav } from "../components/navigation/TopNavegation";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";

@@ -1,7 +1,5 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
-import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
-import { TopNav } from "../components/navigation/TopNavegation";
 
 export default function Cadastroanimalfeito() {
 	return (
