@@ -75,7 +75,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					/>
 					<List.Item
 						title="Meus pets"
-						onPress={() => navigation.navigate("Home")}
+						onPress={() => navigation.navigate("Meus Pets")}
 						style={styles.item}
 					/>
 					<List.Item

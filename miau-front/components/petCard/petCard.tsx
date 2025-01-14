@@ -1,18 +1,20 @@
 import { Layout, Button } from '@ui-kitten/components';
 import {Image, StyleSheet, Text} from 'react-native';
 import React from 'react';
-
+import { useNavigation } from "@react-navigation/native";
 
 
 
 export function petCard(petName:string, petImage:string, numInteressados:string ='3 novos interessados', objetivo:string = 'Apadrinhamento | Ajuda'){
-
+    const navigation = useNavigation<any>();
     return(
        <Layout style={styles.mainView}>
             <Layout style={styles.cardHeader}>
                 <Text style={styles.petName}>{petName}</Text>
-                <Button style={styles.infoIcon}><Image 
-                        source={require("../icons/alertCircle.svg")}
+                <Button onPress={() => navigation.navigate("Detalhes Pet")}
+
+                style={styles.infoIcon}><Image 
+                source={require("../icons/alertCircle.svg")}
                         />
                     </Button>
             </Layout>
