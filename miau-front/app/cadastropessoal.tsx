@@ -1,6 +1,5 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
-import { TopNav } from "../components/navigation/TopNavegation";
 import { useSession } from "../services/auth";
 import React from "react";
 import { useState } from "react";
