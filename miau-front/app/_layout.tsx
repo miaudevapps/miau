@@ -28,6 +28,7 @@ import CadastroPessoal from "@/app/cadastropessoal";
 import CadastroAnimal from "./cadastroanimal";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import usuarioLogado from '@/app/usuariologado';
+import meusPets from '@/app/meuspets';
 
 
 
@@ -68,7 +69,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 				/>
 				<List.Item
 				title="Meus pets"
-				onPress={() => navigation.navigate("Home")}
+				onPress={() => navigation.navigate("Meus Pets")}
 				style={styles.item}
 
 				/>
@@ -200,6 +201,7 @@ function usuarioLogadoScreens(){
 			>
 				<Drawer.Screen name="Home" component={Home} />
 				<Drawer.Screen name="Usuário Logado" component={usuarioLogado}/>
+				<Drawer.Screen name="Meus Pets" component={meusPets}/>
 
 			</Drawer.Group>
 		</Drawer.Navigator>

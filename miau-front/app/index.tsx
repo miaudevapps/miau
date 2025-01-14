@@ -1,5 +1,4 @@
 import { Text, View, Button } from "react-native";
-import { Link } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Index() {
