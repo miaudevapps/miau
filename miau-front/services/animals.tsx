@@ -55,7 +55,7 @@ export const getAnimal = async (AnimalId: string) => {
 	}
 };
 
-export const getAllAnimals = async () => {
+export const getAnImals = async () => {
 	try {
 		const animalsCollection = collection(db, "Animals");
 		const querySnapshot = await getDocs(animalsCollection);
