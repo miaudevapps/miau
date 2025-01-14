@@ -72,3 +72,23 @@ export const getAnImals = async () => {
 		return []; // Or throw an error if you prefer
 	}
 };
+
+export const getAnimalsByUser = async (userId: string) => {
+	try {
+		const animalsCollection = collection(db, "Animals");
+		const querySnapshot = await getDocs(animalsCollection);
+
+		const animals = querySnapshot.docs
+			.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}))
+			.filter((animal) => animal.userId === userId);
+
+		console.log("Animais do usuário:", animals);
+		return animals; // Return the array of animal data
+	} catch (error) {
+		console.error("Erro ao buscar animais do usuário:", error);
+		return []; // Or throw an error if you prefer
+	}
+};
