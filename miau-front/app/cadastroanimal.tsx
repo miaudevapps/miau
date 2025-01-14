@@ -91,6 +91,10 @@ export default function CadastroAnimal() {
 		}
 	};
 
+	if (!user) {
+		navigation.navigate("Cadastro");
+		return null;
+	}
 	return (
 		<Layout style={{ flex: 1 }}>
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
