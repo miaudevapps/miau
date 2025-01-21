@@ -1,5 +1,6 @@
 import { doc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseconfig";
+import { getAuth, signOut } from "firebase/auth";
 
 export const createUser = async (userId: string, data: any) => {
 	try {
@@ -28,4 +29,15 @@ export const deleteUser = async (userId: string) => {
 	} catch (error) {
 		console.error("Erro ao deletar usuário na tabela user", error);
 	}
+}
+
+export const logout = async () => {
+	const auth = getAuth();
+	try {
+		await signOut(auth);
+		console.log("Usuário deslogado com sucesso.");
+	} catch (error) {
+		console.error("Erro ao deslogar:", error);
+	}
+
 };
