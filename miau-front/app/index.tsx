@@ -1,5 +1,4 @@
 import { Text, View, Button } from "react-native";
-import { Link } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Index() {
@@ -30,6 +29,18 @@ export default function Index() {
 			<Button
 				title="Ver Cadastro Animal Feito"
 				onPress={() => navigation.navigate("cadastroanimalfeito")}
+			/>
+			<Button
+				title="Ver Adotar Animais"
+				onPress={() => navigation.navigate("adotaranimais")}
+			/>
+			<Button
+				title="Ver Detalhes Animal"
+				onPress={() => navigation.navigate("detalhesanimal")}
+			/>
+			<Button
+				title="detalhesanimaladotar"
+				onPress={() => navigation.navigate("detalhesanimaladotar")}
 			/>
 		</View>
 	);

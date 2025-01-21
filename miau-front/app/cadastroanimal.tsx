@@ -8,7 +8,6 @@ import {
 	CheckBox,
 } from "@ui-kitten/components";
 import { Image, StyleSheet, TextInput, ScrollView } from "react-native";
-import { TopNav } from "../components/navigation/TopNavegation";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
@@ -29,6 +28,7 @@ interface FormValues {
 	exigencias: string[];
 	tempo_acompanhamento: string;
 	userId?: string;
+	animalID?: string;
 	image_url: string | null;
 }
 
@@ -52,6 +52,7 @@ export default function CadastroAnimal() {
 			exigencias: [],
 			tempo_acompanhamento: "",
 			userId: user?.uid,
+			animalID: "",
 			image_url: null,
 		},
 	});
@@ -65,8 +66,9 @@ export default function CadastroAnimal() {
 			console.log(data);
 			// criar id aleatório para o animal
 			const animalId = Math.random().toString(36).substring(7);
+			data.animalID = animalId;
 			await createAnimal(animalId, data);
-			navigation.navigate("Home");
+			navigation.navigate("Cadastro Animal Feito");
 		} catch (error) {
 			console.error("Erro ao cadastrar animal", error);
 		}
@@ -89,6 +91,10 @@ export default function CadastroAnimal() {
 		}
 	};
 
+	if (!user) {
+		navigation.navigate("Cadastro");
+		return null;
+	}
 	return (
 		<Layout style={{ flex: 1 }}>
 			<ScrollView contentContainerStyle={styles.scrollContainer}>

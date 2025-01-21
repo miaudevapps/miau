@@ -1,9 +1,11 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
-import { Link } from "expo-router";
 import { Image, StyleSheet } from "react-native";
-import { TopNav } from "../components/navigation/TopNavegation";
+import { useNavigation } from "@react-navigation/native";
 
-export default function cadastroanimalfeito() {
+
+export default function Cadastroanimalfeito() {
+	const navigation = useNavigation<any>();
+
 	return (
 		<Layout style={{ flex: 1 }}>
 			<Layout style={{ alignItems: "center" }}>
@@ -22,7 +24,8 @@ export default function cadastroanimalfeito() {
 					assim que alguém interessado entrar{"\n"}
 					em contato!
 				</Text>
-				<Button style={styles.button}>
+				<Button onPress={() => navigation.navigate("Meus pets")} 
+				style={styles.button}>
 					{(evaProps) => <Text style={styles.buttonText}>MEUS PETS</Text>}
 				</Button>
 			</Layout>

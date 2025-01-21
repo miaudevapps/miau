@@ -1,4 +1,12 @@
-import { doc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+	doc,
+	setDoc,
+	updateDoc,
+	deleteDoc,
+	getDoc,
+	getDocs,
+	collection,
+} from "firebase/firestore";
 import { db } from "./firebaseconfig";
 import { useSession } from "./auth";
 
@@ -26,5 +34,61 @@ export const deleteAnimal = async (AnimalId: string) => {
 		console.log("Usuário deletado na tabela de Animals!");
 	} catch (error) {
 		console.error("Erro ao deletar usuário na tabela Animal", error);
+	}
+};
+
+export const getAnimal = async (AnimalId: string) => {
+	try {
+		const docRef = doc(db, "Animals", AnimalId);
+		const docSnap = await getDoc(docRef);
+
+		if (docSnap.exists()) {
+			console.log("Animal encontrado:", docSnap.data());
+			return docSnap.data(); // Return the animal data
+		} else {
+			console.log("Animal não encontrado!");
+			return null; // Or throw an error if you prefer
+		}
+	} catch (error) {
+		console.error("Erro ao buscar animal:", error);
+		return null; // Or throw an error if you prefer
+	}
+};
+
+export const getAnImals = async () => {
+	try {
+		const animalsCollection = collection(db, "Animals");
+		const querySnapshot = await getDocs(animalsCollection);
+
+		const animals = querySnapshot.docs.map((doc) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
+
+		console.log("Todos os animais:", animals);
+		return animals; // Return the array of animal data
+	} catch (error) {
+		console.error("Erro ao buscar todos os animais:", error);
+		return []; // Or throw an error if you prefer
+	}
+};
+
+export const getAnimalsByUser = async (userId: string) => {
+	try {
+		const animalsCollection = collection(db, "Animals");
+		const querySnapshot = await getDocs(animalsCollection);
+
+		const animals = querySnapshot.docs
+			.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}))
+			.filter((animal) => animal.userId === userId);
+
+		console.log("Animais do usuário:", animals);
+		return animals; // Return the array of animal data
+	} catch (error) {
+		console.error("Erro ao buscar animais do usuário:", error);
+		return []; // Or throw an error if you prefer
 	}
 };
