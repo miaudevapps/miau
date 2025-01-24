@@ -34,6 +34,9 @@ import Index from "./index";
 import usuarioLogado from "@/app/usuariologado";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import meusPets from "@/app/meuspets";
+import { ListAccordionGroupContext } from "react-native-paper/lib/typescript/components/List/ListAccordionGroup";
+import { Button } from 'react-native';
+import { logout } from '@/services/users';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -178,6 +181,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					title="Sair"
 					style={styles.itemSair}
 					titleStyle={{ textAlign: "center" }}
+					onPress={logout}					
 				/>
 			</List.Section>
 		</View>
