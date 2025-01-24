@@ -25,12 +25,12 @@ export default function DetalhesPet({ route }: any) {
 				<Image
 					style={styles.image}
 					source={{
-						uri: animal.image_url,
+						uri: "https://firebasestorage.googleapis.com/v0/b/miau-504b6.firebasestorage.app/o/images%2F1736893411314?alt=media&token=9bfd1b16-4dc6-42ed-b2c9-87a9bd4136b4",
 					}}
 				/>
 				<Icon name="edit-outline" fill="#434343" style={styles.editIcon} />
 
-				<Text style={styles.petName}>{animal.nome}</Text>
+				<Text style={styles.petName}>Pequi</Text>
 
 				<Layout style={styles.infoRow}>
 					<Text style={styles.infoItemBlue}>SEXO</Text>
@@ -39,9 +39,9 @@ export default function DetalhesPet({ route }: any) {
 				</Layout>
 
 				<Layout style={styles.infoRow}>
-					<Text style={styles.infoItem}>{animal.sexo}</Text>
-					<Text style={styles.infoItem}>{animal.porte}</Text>
-					<Text style={styles.infoItem}>{animal.idade}</Text>
+					<Text style={styles.infoItem}>Macho</Text>
+					<Text style={styles.infoItem}>Pequeno</Text>
+					<Text style={styles.infoItem}>12</Text>
 				</Layout>
 
 				<View style={styles.section}>

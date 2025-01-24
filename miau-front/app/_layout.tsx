@@ -34,6 +34,7 @@ import Index from "./index";
 import usuarioLogado from "@/app/usuariologado";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import meusPets from "@/app/meuspets";
+import { Chat } from "./Chat";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -277,6 +278,11 @@ export default function RootLayout() {
 									name="Detalhes Pet Adotar"
 									component={DetalhesPetAdotar}
 								/>
+							</Stack.Group>
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#88c9bf" } }}
+							>
+								<Stack.Screen name="Chat" component={Chat} />
 							</Stack.Group>
 						</Stack.Navigator>
 					</ApplicationProvider>
