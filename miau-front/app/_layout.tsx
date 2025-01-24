@@ -35,6 +35,7 @@ import usuarioLogado from "@/app/usuariologado";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import meusPets from "@/app/meuspets";
 import { Chat } from "./Chat";
+import { MeusChats } from "./MeusChats";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -86,7 +87,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					/>
 					<List.Item
 						title="Chat"
-						onPress={() => navigation.navigate("Cadastro Pessoal")}
+						onPress={() => navigation.navigate("Meus Chats")}
 						style={styles.item}
 					/>
 				</List.Accordion>
@@ -283,6 +284,11 @@ export default function RootLayout() {
 								screenOptions={{ headerStyle: { backgroundColor: "#88c9bf" } }}
 							>
 								<Stack.Screen name="Chat" component={Chat} />
+							</Stack.Group>
+							<Stack.Group
+								screenOptions={{ headerStyle: { backgroundColor: "#88c9bf" } }}
+							>
+								<Stack.Screen name="Meus Chats" component={MeusChats} />
 							</Stack.Group>
 						</Stack.Navigator>
 					</ApplicationProvider>
