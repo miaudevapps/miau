@@ -3,9 +3,18 @@ import { useNavigation } from "@react-navigation/native";
 import { useSession } from "@/services/auth";
 import { getMessages } from "@/services/chatservice";
 import { Layout, Text } from "@ui-kitten/components";
+import { TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 
-export const ChatPreview = ({ chat: any }) => {
+interface Chat {
+	id: string;
+}
+
+interface ChatPreviewProps {
+	chat: Chat;
+}
+
+export const ChatPreview: React.FC<ChatPreviewProps> = ({ chat }) => {
 	const navigation = useNavigation<any>();
 	const user = useSession().user;
 
@@ -14,7 +23,9 @@ export const ChatPreview = ({ chat: any }) => {
 	useEffect(() => {
 		const fetchLastMessage = async () => {
 			const response = await getMessages(chat.id);
-			setLastMessage(response);
+			const messages = response.data;
+			// pegar a ultima mensagem baseado no timestamp
+			//setLastMessage(messages[messages.length - 1]);
 		};
 		fetchLastMessage();
 	}, [chat.id]);
@@ -24,10 +35,11 @@ export const ChatPreview = ({ chat: any }) => {
 	};
 
 	return (
-		<Layout style={styles.container} onPress={goToChat}>
-			<Text category="h6">{chat.name}</Text>
-			<Text>{lastMessage.text}</Text>
-		</Layout>
+		<TouchableOpacity style={styles.container} onPress={goToChat}>
+			<Layout>
+				<Text category="h6">{chat.id}</Text>
+			</Layout>
+		</TouchableOpacity>
 	);
 };
 

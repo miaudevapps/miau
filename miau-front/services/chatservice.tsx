@@ -17,6 +17,7 @@ export const createChat = async (
 	console.log("Criando chat...");
 	const ChatId = DonoPetId + InteressadoId + AnimalId;
 	const data = {
+		id: ChatId,
 		DonoPetId: DonoPetId,
 		InteressadoId: InteressadoId,
 		AnimalId: AnimalId,
