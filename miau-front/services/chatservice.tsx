@@ -69,14 +69,28 @@ export const getChatsByUser = async (UserId: string) => {
 	}
 };
 
-export const sendMessage = async (ChatId: string, message: any) => {
+export const sendMessage = async (
+	ChatId: string,
+	message: string,
+	userId: string
+) => {
 	try {
 		const chatRef = doc(db, "Chats", ChatId);
 		const chatSnap = await getDoc(chatRef);
 
 		if (chatSnap.exists()) {
 			const chat = chatSnap.data();
-			chat.Mensagens.push(message);
+			console.log("Enviando mensagem...");
+			console.log(chat);
+			const messageData = {
+				_id: chat.Mensagens.length + 1,
+				text: message,
+				createdAt: new Date(),
+				user: {
+					_id: userId,
+				},
+			};
+			chat.Mensagens.push(messageData);
 
 			await updateDoc(chatRef, chat);
 			console.log("Mensagem enviada!");

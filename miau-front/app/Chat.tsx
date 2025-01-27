@@ -19,38 +19,52 @@ import {
 	ViewStyle,
 	TextStyle,
 } from "react-native/Libraries/StyleSheet/StyleSheetTypes";
+import { getMessages, sendMessage } from "@/services/chatservice";
 
-export function Chat() {
+interface Chat {
+	id: string;
+	DonoPetId: string;
+	InteressadoId: string;
+	AnimalId: string;
+	timestamp: number;
+}
+
+export function Chat({ route }: any) {
+	const { chat, userId } = route.params;
 	const [messages, setMessages] = useState<IMessage[]>([]);
 
 	useEffect(() => {
-		setMessages([
-			{
-				_id: 1,
-				text: "Hello developer",
-				createdAt: new Date(),
-				user: {
-					_id: 2,
-					name: "React Native",
-					avatar: "https://placeimg.com/140/140/any",
-				},
-			},
-		]);
-	}, []);
+		// Fetch messages from chat
+		const fetchMessages = async () => {
+			const messagesData = await getMessages(chat.id);
+			setMessages(messagesData);
+		};
+		fetchMessages();
+	}, [chat.id]);
 
-	const onSend = useCallback((messages: IMessage[] = []) => {
-		setMessages((previousMessages) =>
-			GiftedChat.append(previousMessages, messages)
-		);
-	}, []);
+	const onSend = useCallback(
+		(messages: IMessage[] = []) => {
+			// Send message to chat
+			console.log("Sending message:", messages[0].text);
+			console.log("User ID:", userId);
+			console.log("Chat ID:", chat.id);
+			setMessages((previousMessages) =>
+				GiftedChat.append(previousMessages, messages)
+			);
+			sendMessage(chat.id, messages[0].text, userId);
+		},
+		[chat.id, userId]
+	);
+
+	const currentUser = {
+		_id: userId,
+	};
 
 	return (
 		<GiftedChat
 			messages={messages}
 			onSend={(messages) => onSend(messages)}
-			user={{
-				_id: 1,
-			}}
+			user={currentUser}
 		/>
 	);
 }
