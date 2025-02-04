@@ -34,6 +34,7 @@ import Index from "./index";
 import usuarioLogado from "@/app/usuariologado";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import meusPets from "@/app/meuspets";
+import meuPerfil from "./meuperfil";
 import { ListAccordionGroupContext } from "react-native-paper/lib/typescript/components/List/ListAccordionGroup";
 import { Button } from 'react-native';
 import { logout } from '@/services/users';
@@ -73,7 +74,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 				>
 					<List.Item
 						title="Meu Perfil"
-						onPress={() => navigation.navigate("Usuário Logado")}
+						onPress={() => navigation.navigate("Meu Perfil")}
 						style={styles.item}
 					/>
 					<List.Item
@@ -207,6 +208,7 @@ function usuarioLogadoScreens() {
 				<Drawer.Screen name="Home" component={Home} />
 				<Drawer.Screen name="Usuário Logado" component={usuarioLogado} />
 				<Drawer.Screen name="Meus Pets" component={meusPets} />
+				<Drawer.Screen name="Meu Perfil" component={meuPerfil} />
 			</Drawer.Group>
 		</Drawer.Navigator>
 	);
