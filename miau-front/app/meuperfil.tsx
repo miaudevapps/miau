@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react";
-import { getUserById } from "../services/users"; // Importa a função que busca os dados do usuário
-import { getAuth } from "firebase/auth";
+import { getUserById } from "../services/users";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { View, Text, Image, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 
 const MeuPerfil = () => {
     const [user, setUser] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
     const auth = getAuth();
-    const currentUser = auth.currentUser;
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
+                console.log("Usuário autenticado:", currentUser.uid);
                 const userData = await getUserById(currentUser.uid);
+                console.log("Dados do usuário:", userData);
                 setUser(userData);
             }
-        };
-        fetchUser();
-    }, [currentUser]);
+            setLoading(false);
+        });
+
+        return () => unsubscribe(); // Limpa o listener ao desmontar
+    }, []);
+
+    if (loading) {
+        return <ActivityIndicator size="large" color="#1E90FF" style={styles.loading} />;
+    }
 
     if (!user) {
-        return <ActivityIndicator size="large" color="#1E90FF" style={styles.loading} />;
+        return <Text style={styles.errorText}>Usuário não encontrado.</Text>;
     }
 
     return (
@@ -76,6 +84,12 @@ const styles = StyleSheet.create({
     loading: {
         flex: 1,
         justifyContent: "center",
+    },
+    errorText: {
+        fontSize: 18,
+        color: "red",
+        textAlign: "center",
+        marginTop: 20,
     },
     profileImage: {
         width: 100,
