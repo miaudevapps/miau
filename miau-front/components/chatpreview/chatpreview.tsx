@@ -35,7 +35,12 @@ export const ChatPreview: React.FC<ChatPreviewProps> = ({ chat }) => {
 			setLoading(true);
 			try {
 				const messagesData = await getMessages(chat.id);
-				setLastMessage(messagesData[messagesData.length - 1]);
+				if (messagesData != null && messagesData.length > 0) {
+					setLastMessage(messagesData[messagesData.length - 1]);
+				}
+				else {
+					setLastMessage({ text: "" });
+				}
 				const animalData = await getAnimal(chat.AnimalId)
 				setAnimal(animalData);
 				const interessadoData = await getUser(chat.InteressadoId);

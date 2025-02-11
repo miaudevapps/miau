@@ -1,6 +1,6 @@
 import { InferProps, Validator, Requireable } from "prop-types";
 import React, { useState, useCallback, useEffect } from "react";
-import { StyleProp } from "react-native";
+import { KeyboardAvoidingView, View, Dimensions } from "react-native";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
 import {
 	BubbleProps,
@@ -20,7 +20,7 @@ import {
 	TextStyle,
 } from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 import { getMessages, sendMessage } from "@/services/chatservice";
-
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 interface Chat {
 	id: string;
 	DonoPetId: string;
@@ -32,6 +32,8 @@ interface Chat {
 export function Chat({ route }: any) {
 	const { chat, userId } = route.params;
 	const [messages, setMessages] = useState<IMessage[]>([]);
+	const insets = useSafeAreaInsets();
+
 
 	useEffect(() => {
 		// Fetch messages from chat
@@ -61,10 +63,37 @@ export function Chat({ route }: any) {
 	};
 
 	return (
-		<GiftedChat
-			messages={messages}
-			onSend={(messages) => onSend(messages)}
-			user={currentUser}
-		/>
+		<View style={{ height: Dimensions.get('window').height }}>
+			<View style={{flex: 12}} >
+				<GiftedChat
+					alwaysShowSend
+					scrollToBottom 
+					renderBubble={(props) => {
+						return (
+							<Bubble
+								{...props}
+								wrapperStyle={{
+									left: {
+										backgroundColor: "#ffffff",
+									},
+									right: {
+										backgroundColor: "#88c9bf",
+									},
+								}}
+							/>
+						);
+					}}
+
+
+					
+					bottomOffset={insets.bottom}
+					messages={messages}
+					onSend={(messages) => onSend(messages)}
+					user={currentUser}
+				/>
+			</View>
+			<KeyboardAvoidingView style={{ flex: 1 , alignSelf: "flex-end",}}/>
+
+		</View>
 	);
 }
