@@ -1,83 +1,107 @@
 import { Layout, Text, Button, Icon } from "@ui-kitten/components";
 import { Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
     return (
-        <Layout style={{ flex: 1 }}>
-            <Layout style={{ alignItems: "center" }}>
-                <Text category="h1" style={styles.title}>
-                    Página de Links!
-                </Text>
-                <Text style={styles.description}>
-                    Qual página deseja visitar?
-                </Text>
-                <Button
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Home")}
-                >
-                    {(evaProps) => <Text style={styles.buttonText}>HOME</Text>}
-                </Button>
-                <Button
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Cadastro")}
-                >
-                    {(evaProps) => (
-                        <Text style={styles.buttonText}>
-                            PÁGINA DE CADASTRO
-                        </Text>
-                    )}
-                </Button>
-                <Button
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Login")}
-                >
-                    {(evaProps) => (
-                        <Text style={styles.buttonText}>PÁGINA DE LOGIN</Text>
-                    )}
-                </Button>
-                <Button
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Cadastro Pessoal")}
-                >
-                    {(evaProps) => (
-                        <Text style={styles.buttonText}>CADASTRO PESSOAL</Text>
-                    )}
-                </Button>
-                <Button
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Cadastro Animal")}
-                >
-                    {(evaProps) => (
-                        <Text style={styles.buttonText}>CADASTRAR ANIMAL</Text>
-                    )}
-                </Button>
-                <Button
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Cadastro Animal Feito")}
-                >
-                    {(evaProps) => (
-                        <Text style={styles.buttonText}>
-                            CADASTRO ANIMAL FEITO
-                        </Text>
-                    )}
-                </Button>
-                <Button
-                    style={styles.button}
-                    onPress={() => navigation.navigate("TesteNotis")}
-                >
-                    {(evaProps) => (
-                        <Text style={styles.buttonText}>TESTE NOTIFICAÇÃO</Text>
-                    )}
-                </Button>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <Layout style={{ flex: 1 }}>
+                <Layout style={{ alignItems: "center" }}>
+                    <Text category="h1" style={styles.title}>
+                        Página de Links!
+                    </Text>
+                    <Text style={styles.description}>
+                        Qual página deseja visitar?
+                    </Text>
+                    <Button
+                        style={styles.button}
+                        onPress={() => navigation.navigate("Home")}
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>HOME</Text>
+                        )}
+                    </Button>
+                    <Button
+                        style={styles.button}
+                        onPress={() => navigation.navigate("Cadastro")}
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>
+                                PÁGINA DE CADASTRO
+                            </Text>
+                        )}
+                    </Button>
+                    <Button
+                        style={styles.button}
+                        onPress={() => navigation.navigate("Login")}
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>
+                                PÁGINA DE LOGIN
+                            </Text>
+                        )}
+                    </Button>
+                    <Button
+                        style={styles.button}
+                        onPress={() => navigation.navigate("Cadastro Pessoal")}
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>
+                                CADASTRO PESSOAL
+                            </Text>
+                        )}
+                    </Button>
+                    <Button
+                        style={styles.button}
+                        onPress={() => navigation.navigate("Cadastro Animal")}
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>
+                                CADASTRAR ANIMAL
+                            </Text>
+                        )}
+                    </Button>
+                    <Button
+                        style={styles.button}
+                        onPress={() =>
+                            navigation.navigate("Cadastro Animal Feito")
+                        }
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>
+                                CADASTRO ANIMAL FEITO
+                            </Text>
+                        )}
+                    </Button>
+                    <Button
+                        style={styles.button}
+                        onPress={() => navigation.navigate("Chat")}
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>CHAT</Text>
+                        )}
+                    </Button>
 
-                <Image
-                    source={require("../assets/images/logo_colorida.png")}
-                    style={styles.logo}
-                />
+                    <Button
+                        style={styles.button}
+                        onPress={() => navigation.navigate("TesteNotis")}
+                    >
+                        {(evaProps) => (
+                            <Text style={styles.buttonText}>
+                                TESTE NOTIFICAÇÃO
+                            </Text>
+                        )}
+                    </Button>
+
+                    <Image
+                        source={require("../assets/images/logo_colorida.png")}
+                        style={styles.logo}
+                    />
+                </Layout>
             </Layout>
-        </Layout>
+        </ScrollView>
     );
 }
 

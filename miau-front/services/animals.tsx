@@ -79,10 +79,14 @@ export const getAnimalsByUser = async (userId: string) => {
 		const querySnapshot = await getDocs(animalsCollection);
 
 		const animals = querySnapshot.docs
-			.map((doc) => ({
-				id: doc.id,
-				...doc.data(),
-			}))
+			.map((doc) => {
+				const data = doc.data();
+				return {
+					id: doc.id,
+					userId: data.userId, // Ensure userId is included
+					...data,
+				};
+			})
 			.filter((animal) => animal.userId === userId);
 
 		console.log("Animais do usuário:", animals);

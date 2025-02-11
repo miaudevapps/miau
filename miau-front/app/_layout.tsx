@@ -36,6 +36,8 @@ import Index from "./index";
 import usuarioLogado from "@/app/usuariologado";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import meusPets from "@/app/meuspets";
+import { Chat } from "./Chat";
+import { MeusChats } from "./MeusChats";
 import { ListAccordionGroupContext } from "react-native-paper/lib/typescript/components/List/ListAccordionGroup";
 import { Button } from "react-native";
 import { logout } from "@/services/users";
@@ -100,7 +102,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
                     />
                     <List.Item
                         title="Chat"
-                        onPress={() => navigation.navigate("Cadastro Pessoal")}
+                        onPress={() => navigation.navigate("Meus Chats")}
                         style={styles.item}
                     />
                 </List.Accordion>
@@ -124,7 +126,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
                     />
                     <List.Item
                         title="Adotar um pet"
-                        onPress={() => navigation.navigate("Adotaranimais")}
+                        onPress={() => navigation.navigate("Adotar Animais")}
                         style={styles.item}
                     />
                     <List.Item
@@ -346,7 +348,31 @@ export default function RootLayout() {
                                 <Stack.Group
                                     screenOptions={{
                                         headerStyle: {
-                                            backgroundColor: "#cfe9e5",
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Chat"
+                                        component={Chat}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Meus Chats"
+                                        component={MeusChats}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
                                         },
                                     }}
                                 >

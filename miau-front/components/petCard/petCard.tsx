@@ -16,7 +16,7 @@ export function petCard(
 			<Layout style={styles.cardHeader}>
 				<Text style={styles.petName}>{petName}</Text>
 				<Button
-					onPress={() => navigation.navigate("Detalhes Pet", { id: petName })} // Assuming petName is unique and can be used as an ID
+					onPress={() => navigation.navigate("Detalhes Pet", { id: petID })} // Assuming petName is unique and can be used as an ID
 					style={styles.infoIcon}
 				>
 					<Image source={require("../icons/alertCircle.svg")} />
