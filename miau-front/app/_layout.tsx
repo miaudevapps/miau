@@ -35,6 +35,7 @@ import usuarioLogado from "@/app/usuariologado";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import meusPets from "@/app/meuspets";
 import meuPerfil from "./meuperfil";
+import Interessados from "@/app/interessados";
 import { ListAccordionGroupContext } from "react-native-paper/lib/typescript/components/List/ListAccordionGroup";
 import { Button } from 'react-native';
 import { logout } from '@/services/users';
@@ -90,6 +91,11 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
 					<List.Item
 						title="Chat"
 						onPress={() => navigation.navigate("Cadastro Pessoal")}
+						style={styles.item}
+					/>
+					<List.Item
+						title="Interessados"
+						onPress={() => navigation.navigate("Interessados")}
 						style={styles.item}
 					/>
 				</List.Accordion>
@@ -209,6 +215,7 @@ function usuarioLogadoScreens() {
 				<Drawer.Screen name="Usuário Logado" component={usuarioLogado} />
 				<Drawer.Screen name="Meus Pets" component={meusPets} />
 				<Drawer.Screen name="Meu Perfil" component={meuPerfil} />
+				<Drawer.Screen name="Interessados" component={Interessados} />
 			</Drawer.Group>
 		</Drawer.Navigator>
 	);
