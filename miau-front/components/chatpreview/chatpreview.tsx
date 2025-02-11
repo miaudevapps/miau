@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSession } from "@/services/auth";
 import { getMessages } from "@/services/chatservice";
 import { Layout, Text, Spinner } from "@ui-kitten/components";
-import { TouchableOpacity, Image } from "react-native";
+import { TouchableOpacity, Image, View } from "react-native";
 import { StyleSheet } from "react-native";
 import { getAnimal } from "@/services/animals";
 import { getUser } from "@/services/users";
@@ -35,16 +35,19 @@ export const ChatPreview: React.FC<ChatPreviewProps> = ({ chat }) => {
 			setLoading(true);
 			try {
 				const messagesData = await getMessages(chat.id);
-				//setLastMessage(messagesData[messagesData.length - 1]);
-
-				/* const animalData = await getAnimal(chat.AnimalId).then(() => {
-					setAnimal(animalData);
-				}); */
-
+				setLastMessage(messagesData[messagesData.length - 1]);
+				const animalData = await getAnimal(chat.AnimalId)
+				setAnimal(animalData);
 				const interessadoData = await getUser(chat.InteressadoId);
-				if (interessadoData) {
+				const donoPetData = await getUser(chat.DonoPetId);
+				if (userId == chat.DonoPetId && interessadoData && donoPetData) {
 					setInteressado(interessadoData);
-				} else {
+
+				}
+				else if (userId == chat.InteressadoId && interessadoData && donoPetData) {
+					setInteressado(donoPetData);
+				}
+				else {
 					console.error("Failed to fetch interessado data");
 				}
 			} catch (error) {
@@ -72,13 +75,18 @@ export const ChatPreview: React.FC<ChatPreviewProps> = ({ chat }) => {
 	return (
 		<TouchableOpacity style={styles.container} onPress={goToChat}>
 			<Layout>
-				<Image
-					source={{
-						uri: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.magazineluiza.com.br%2Fsalsicha-cachorro-geometrico-decoracao-3d-10-cm-rosa-generico%2Fp%2Fkj8937dea3%2Fme%2Fssch%2F&psig=AOvVaw0tDqZHcIEU_U536iFnoi37&ust=1738087550688000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCNii_eq-losDFQAAAAAdAAAAABAE",
-					}}
-					style={{ width: 50, height: 50 }}
-				/>
-				<Text category="h6">{interessado?.nome}</Text>
+				<View style={{flexDirection: "row" }}>
+					<Image
+						source={{
+							uri: `${interessado.image_url}`,
+						}}
+						style={{ width: 50, height: 50, borderRadius: 50 }}
+					/>
+					<View style={{ marginLeft: 20, flexDirection: "column" }}>
+						<Text category="h6">{interessado.name + "  |  " + animal.nome}</Text>
+						<Text>{lastMessage.text}</Text>
+					</View>
+				</View>
 			</Layout>
 		</TouchableOpacity>
 	);
