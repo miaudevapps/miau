@@ -1,25 +1,65 @@
-import { Layout, Text, Button, Icon } from "@ui-kitten/components";
+import { Layout, Text, Button, Icon, Spinner } from "@ui-kitten/components";
 import { Image, StyleSheet, ScrollView, View } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
+import { getAnimal } from "@/services/animals";
+import { useState, useEffect } from "react";
+import { createChat } from "@/services/chatservice";
+import { useSession } from "@/services/auth";
+import { useNavigation } from "@react-navigation/native";
 
-export default function DetalhesPetAdotar() {
+export default function DetalhesPetAdotar({ route }: any) {
+  const { animalID } = route.params;
+  const user = useSession().user;
+  const navigation = useNavigation<any>();
+
+  const [animal, setAnimal] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchAnimal = async () => {
+      console.log("fetchAnimal");
+      const response = await getAnimal(animalID);
+      setAnimal(response);
+      setLoading(false);
+      console.log(response);
+    };
+    fetchAnimal();
+  }, []);
+
+  const handleAdopt = async () => {
+    // cria um chat com o dono do animal
+    // redireciona para a tela de meus chats
+    console.log("handleAdopt");
+    console.log(user.uid);
+    const chat = await createChat(animal.userId, user.uid, animalID).then(
+      () => {
+        navigation.navigate("Meus Chats");
+      }
+    );
+  };
+
+  if (loading) {
+    return (
+      <Layout
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      >
+        <Spinner size="large" />
+      </Layout>
+    );
+  }
+
   return (
     <Layout style={{ flex: 1, alignItems: "center" }}>
-    {TopNav("Bidu", "#fdcf58")}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Image
           style={styles.image}
           source={{
-            uri: "https://www.direcional.com.br/wp-content/uploads/2022/08/cachorro-para-apartamento.jpg"
+            uri: animal.image_url,
           }}
         />
-        <Icon
-          name="heart"
-          fill="#434343"
-          style={styles.editIcon}
-        />
+        <Icon name="heart" fill="#434343" style={styles.editIcon} />
 
-        <Text style={styles.petName}>Bidu</Text>
+        <Text style={styles.petName}>{animal.nome}</Text>
 
         <Layout style={styles.infoRow}>
           <Text style={styles.infoItemYellow}>SEXO</Text>
@@ -28,15 +68,14 @@ export default function DetalhesPetAdotar() {
         </Layout>
 
         <Layout style={styles.infoRow}>
-          <Text style={styles.infoItem}>Macho</Text>
-          <Text style={styles.infoItem}>Médio</Text>
-          <Text style={styles.infoItem}>Adulto</Text>
+          <Text style={styles.infoItem}>{animal.sexo}</Text>
+          <Text style={styles.infoItem}>{animal.porte}</Text>
+          <Text style={styles.infoItem}>{animal.idade}</Text>
         </Layout>
-
 
         <View style={styles.section}>
           <Text style={styles.label}>LOCALIZAÇÃO</Text>
-          <Text style={styles.location}>Samambaia Sul – Distrito Federal</Text>  
+          <Text style={styles.location}>Samambaia Sul – Distrito Federal</Text>
           <Text style={styles.label}>GASTOS</Text>
           <Text style={styles.infoText}>Não</Text>
           <Text style={styles.label}>VERMIFUGADO</Text>
@@ -60,27 +99,27 @@ export default function DetalhesPetAdotar() {
         <View style={styles.section}>
           <Text style={styles.label}>DESCRIÇÃO DO DOADOR</Text>
           <Text style={styles.infoText}>
-          Termo de adoção, fotos da casa, visita prévia e
-          acompanhamento durante três meses
+            Termo de adoção, fotos da casa, visita prévia e acompanhamento
+            durante três meses
           </Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.label}>MAIS SOBRE PEQUI</Text>
           <Text style={styles.infoText}>
-          Bidu é um cão muito dócil e de fácil convivência.
-          Adora caminhadas e se dá muito bem com
-          crianças. Tem muito medo de raios e de chuva,
-          nesses momentos ele requer mais atenção. Está
-          disponível para adoção pois eu e minha família o
-          encontramos na rua e não podemos mantê-lo em
-          nossa casa. 
+            Bidu é um cão muito dócil e de fácil convivência. Adora caminhadas e
+            se dá muito bem com crianças. Tem muito medo de raios e de chuva,
+            nesses momentos ele requer mais atenção. Está disponível para adoção
+            pois eu e minha família o encontramos na rua e não podemos mantê-lo
+            em nossa casa.
           </Text>
         </View>
 
         <Layout style={styles.buttonContainer}>
-          <Button style={styles.button}>
-            {(evaProps) => <Text style={styles.buttonText}>PRETENDO ADOTAR</Text>}
+          <Button style={styles.button} onPress={handleAdopt}>
+            {(evaProps) => (
+              <Text style={styles.buttonText}>PRETENDO ADOTAR</Text>
+            )}
           </Button>
         </Layout>
       </ScrollView>

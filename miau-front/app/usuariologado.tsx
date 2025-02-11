@@ -10,36 +10,56 @@ export default function HomeScreen() {
 				<Text category="h1" style={styles.title}>
 					Página de Links!
 				</Text>
-				<Text style={styles.description}>
-					Qual página deseja visitar?
-				</Text>
-				<Button style={styles.button} onPress={() => navigation.navigate("Home")}>
+				<Text style={styles.description}>Qual página deseja visitar?</Text>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Home")}
+				>
 					{(evaProps) => <Text style={styles.buttonText}>HOME</Text>}
 				</Button>
-				<Button style={styles.button} onPress={() => navigation.navigate("Cadastro")}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Cadastro")}
+				>
 					{(evaProps) => (
 						<Text style={styles.buttonText}>PÁGINA DE CADASTRO</Text>
 					)}
 				</Button>
-                <Button style={styles.button} onPress={() => navigation.navigate("Login")}>
-					{(evaProps) => (
-						<Text style={styles.buttonText}>PÁGINA DE LOGIN</Text>
-					)}
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Login")}
+				>
+					{(evaProps) => <Text style={styles.buttonText}>PÁGINA DE LOGIN</Text>}
 				</Button>
-                <Button style={styles.button} onPress={() => navigation.navigate("Cadastro Pessoal")}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Cadastro Pessoal")}
+				>
 					{(evaProps) => (
 						<Text style={styles.buttonText}>CADASTRO PESSOAL</Text>
 					)}
 				</Button>
-                <Button style={styles.button} onPress={() => navigation.navigate("Cadastro Animal")}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Cadastro Animal")}
+				>
 					{(evaProps) => (
 						<Text style={styles.buttonText}>CADASTRAR ANIMAL</Text>
 					)}
 				</Button>
-                <Button style={styles.button} onPress={() => navigation.navigate("Cadastro Animal Feito")}>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Cadastro Animal Feito")}
+				>
 					{(evaProps) => (
 						<Text style={styles.buttonText}>CADASTRO ANIMAL FEITO</Text>
 					)}
+				</Button>
+				<Button
+					style={styles.button}
+					onPress={() => navigation.navigate("Chat")}
+				>
+					{(evaProps) => <Text style={styles.buttonText}>CHAT</Text>}
 				</Button>
 
 				<Image
