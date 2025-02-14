@@ -3,6 +3,7 @@ import { Alert, Button, Platform, SafeAreaView, StatusBar } from "react-native";
 import { Text, Layout } from "@ui-kitten/components";
 import { useNotification } from "@/context/notifications";
 import * as Updates from "expo-updates";
+import { sendPushNotification } from "@/services/notifications";
 
 export default function TesteNotis() {
     const { notification, expoPushToken, error } = useNotification();
@@ -14,6 +15,16 @@ export default function TesteNotis() {
     if (error) {
         return <Text>Error: {error.message}</Text>;
     }
+
+    const HandleSendNotification = async () => {
+        try {
+            await sendPushNotification(
+                "ExponentPushToken[pC0uMzCQHJL8ngO1SNLLb3]"
+            );
+        } catch (e) {
+            Alert.alert("Error");
+        }
+    };
 
     useEffect(() => {
         if (isUpdatePending) {
@@ -73,6 +84,10 @@ export default function TesteNotis() {
                         2
                     )}
                 </Text>
+                <Button
+                    onPress={() => HandleSendNotification()}
+                    title="Send Notification"
+                />
             </SafeAreaView>
         </Layout>
     );

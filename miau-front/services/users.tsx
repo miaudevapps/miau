@@ -58,3 +58,21 @@ export const getUser = async (userId: string) => {
         console.error("Erro ao buscar usuário na tabela user", error);
     }
 };
+
+export const addPushToken = async (userId: string, pushToken: string) => {
+    // Verifica se o usuário ja tem esse token
+    // Se não tiver adicionar ao array de tokens
+
+    const user = await getUser(userId);
+    if (user) {
+        if (user.pushTokens) {
+            if (!user.pushTokens.includes(pushToken)) {
+                user.pushTokens.push(pushToken);
+                updateUser(userId, user);
+            }
+        } else {
+            user.pushTokens = [pushToken];
+            updateUser(userId, user);
+        }
+    }
+};

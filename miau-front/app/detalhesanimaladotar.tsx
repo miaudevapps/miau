@@ -32,12 +32,17 @@ export default function DetalhesPetAdotar({ route }: any) {
         // redireciona para a tela de meus chats
         console.log("handleAdopt");
         console.log(user.uid);
+        console.log("mandando notificação");
+        await sendPushNotification("ExponentPushToken[pC0uMzCQHJL8ngO1SNLLb3]")
+            .then(() => console.log("Notificação enviada"))
+            .catch((error) => {
+                console.log(error);
+            });
         const chat = await createChat(animal.userId, user.uid, animalID).then(
             () => {
                 navigation.navigate("Meus Chats");
             }
         );
-        sendPushNotification("ExponentPushToken[pC0uMzCQHJL8ngO1SNLLb3]");
     };
 
     if (loading) {
