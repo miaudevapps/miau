@@ -1,7 +1,8 @@
-import { doc, setDoc, updateDoc, deleteDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebaseconfig";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { getAuth, signOut } from "firebase/auth";
+import { collection, getDocs, getDoc } from "firebase/firestore";
 
 export const createUser = async (userId: string, data: any) => {
     try {

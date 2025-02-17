@@ -1,12 +1,12 @@
 import { Layout, Text, Button, Icon, Spinner } from "@ui-kitten/components";
 import { Image, StyleSheet, ScrollView, View } from "react-native";
 import { TopNav } from "../components/navigation/TopNavegation";
-import { getAnimal } from "@/services/animals";
+import { getAnimal, addInteressado } from "@/services/animals";
 import { useState, useEffect } from "react";
 import { createChat } from "@/services/chatservice";
 import { useSession } from "@/services/auth";
 import { useNavigation } from "@react-navigation/native";
-import { sendPushNotification } from "@/services/notifications";
+import { sendPushNotificationToUser } from "@/services/notifications";
 
 export default function DetalhesPetAdotar({ route }: any) {
     const { animalID } = route.params;
@@ -30,19 +30,12 @@ export default function DetalhesPetAdotar({ route }: any) {
     const handleAdopt = async () => {
         // cria um chat com o dono do animal
         // redireciona para a tela de meus chats
-        console.log("handleAdopt");
-        console.log(user.uid);
-        console.log("mandando notificação");
-        await sendPushNotification("ExponentPushToken[pC0uMzCQHJL8ngO1SNLLb3]")
+        await addInteressado(animalID, user.uid);
+        await sendPushNotificationToUser(animal.userId)
             .then(() => console.log("Notificação enviada"))
             .catch((error) => {
                 console.log(error);
             });
-        const chat = await createChat(animal.userId, user.uid, animalID).then(
-            () => {
-                navigation.navigate("Meus Chats");
-            }
-        );
     };
 
     if (loading) {

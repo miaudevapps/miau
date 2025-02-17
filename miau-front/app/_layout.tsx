@@ -36,6 +36,8 @@ import Index from "./index";
 import usuarioLogado from "@/app/usuariologado";
 import cadastroanimalfeito from "./cadastroanimalfeito";
 import meusPets from "@/app/meuspets";
+import meuPerfil from "./meuperfil";
+import Interessados from "@/app/interessados";
 import { Chat } from "./Chat";
 import { MeusChats } from "./MeusChats";
 import { ListAccordionGroupContext } from "react-native-paper/lib/typescript/components/List/ListAccordionGroup";
@@ -379,6 +381,18 @@ export default function RootLayout() {
                                     <Stack.Screen
                                         name="TesteNotis"
                                         component={TesteNotis}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Interessados"
+                                        component={Interessados}
                                     />
                                 </Stack.Group>
                             </Stack.Navigator>
