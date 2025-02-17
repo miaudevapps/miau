@@ -29,80 +29,80 @@ import { useNavigation } from "@react-navigation/native";
 ] */
 
 export default function Adotaranimais() {
-	const navigation = useNavigation<any>();
+  const navigation = useNavigation<any>();
 
-	const [animals, setAnimals] = useState<any[]>([]);
+  const [animals, setAnimals] = useState<any[]>([]);
 
-	useEffect(() => {
-		const fetchAnimals = async () => {
-			const response = await getAnImals();
-			console.log(response);
-			setAnimals(response);
-		};
-		fetchAnimals();
-	}, []);
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      const response = await getAnImals();
+      console.log(response);
+      setAnimals(response);
+    };
+    fetchAnimals();
+  }, []);
 
-	return (
-		<Layout style={styles.container}>
-			<ScrollView contentContainerStyle={styles.scrollView}>
-				{animals.map((animal) => (
-					<View key={animal.animalID} style={styles.card}>
-						<Image source={{ uri: animal.image_url }} style={styles.image} />
-						<Text category="h6" style={styles.name}>
-							{animal.nome}
-						</Text>
-						<Text category="s1" style={styles.info}>
-							{animal.info}
-						</Text>
-						<Button
-							style={styles.button}
-							onPress={() =>
-								navigation.navigate("Detalhes Pet", {
-									animalID: animal.animalID,
-								})
-							}
-						>
-							Ver Mais
-						</Button>
-					</View>
-				))}
-			</ScrollView>
-		</Layout>
-	);
+  return (
+    <Layout style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        {animals.map((animal) => (
+          <View key={animal.animalID} style={styles.card}>
+            <Image source={{ uri: animal.image_url }} style={styles.image} />
+            <Text category="h6" style={styles.name}>
+              {animal.nome}
+            </Text>
+            <Text category="s1" style={styles.info}>
+              {animal.info}
+            </Text>
+            <Button
+              style={styles.button}
+              onPress={() =>
+                navigation.navigate("Detalhes Pet Adotar", {
+                  animalID: animal.animalID,
+                })
+              }
+            >
+              Ver Mais
+            </Button>
+          </View>
+        ))}
+      </ScrollView>
+    </Layout>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fafafa",
-	},
-	scrollView: {
-		padding: 8,
-		alignItems: "center",
-	},
-	card: {
-		backgroundColor: "#fff",
-		borderRadius: 8,
-		marginBottom: 60,
-		width: 344,
-		height: 264,
-	},
-	image: {
-		width: 344,
-		height: 183,
-	},
-	name: {
-		marginTop: 8,
-		fontWeight: "bold",
-		color: "#434343",
-	},
-	info: {
-		marginTop: 4,
-		color: "#434343",
-	},
-	button: {
-		marginTop: 8,
-		backgroundColor: "#ffd358",
-		borderColor: "transparent",
-	},
+  container: {
+    flex: 1,
+    backgroundColor: "#fafafa",
+  },
+  scrollView: {
+    padding: 8,
+    alignItems: "center",
+  },
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    marginBottom: 60,
+    width: 344,
+    height: 264,
+  },
+  image: {
+    width: 344,
+    height: 183,
+  },
+  name: {
+    marginTop: 8,
+    fontWeight: "bold",
+    color: "#434343",
+  },
+  info: {
+    marginTop: 4,
+    color: "#434343",
+  },
+  button: {
+    marginTop: 8,
+    backgroundColor: "#ffd358",
+    borderColor: "transparent",
+  },
 });
