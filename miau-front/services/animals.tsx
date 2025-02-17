@@ -122,14 +122,14 @@ export const addInteressado = async (AnimalId: string, userId: string) => {
             return;
         }
 
-        const interassados = animal.interassados || [];
-        if (interassados.includes(userId)) {
+        const interessados = animal.interessados || [];
+        if (interessados.includes(userId)) {
             console.log("Usuário já é um interessado!");
             return;
         }
 
-        interassados.push(userId);
-        await updateAnimal(AnimalId, { interassados });
+        interessados.push(userId);
+        await updateAnimal(AnimalId, { interessados });
         console.log("Interessado adicionado com sucesso!");
     } catch (error) {
         console.error("Erro ao adicionar interessado:", error);

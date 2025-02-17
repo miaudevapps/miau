@@ -383,6 +383,18 @@ export default function RootLayout() {
                                         component={TesteNotis}
                                     />
                                 </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Interessados"
+                                        component={Interessados}
+                                    />
+                                </Stack.Group>
                             </Stack.Navigator>
                         </ApplicationProvider>
                     </SafeAreaProvider>

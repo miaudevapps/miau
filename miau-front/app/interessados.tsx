@@ -32,10 +32,12 @@ export default function Interessados({ route }: any) {
 
     useEffect(() => {
         const fetchUsers = async () => {
+            console.log(interessados);
             const userPromises = interessados.map((id: string) => getUser(id));
             const usersData = await Promise.all(userPromises);
             setUsers(usersData);
             setLoading(false);
+            console.log(usersData);
         };
 
         fetchUsers();
@@ -67,7 +69,7 @@ export default function Interessados({ route }: any) {
                             }}
                         >
                             <Image
-                                source={{ uri: user.photo }}
+                                source={{ uri: user.image_url }}
                                 style={styles.userImage}
                             />
                         </TouchableOpacity>

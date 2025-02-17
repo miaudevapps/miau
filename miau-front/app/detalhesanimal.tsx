@@ -120,7 +120,10 @@ export default function DetalhesPet({ route }: any) {
                 </View>
 
                 <Layout style={styles.buttonContainer}>
-                    <Button style={styles.button}>
+                    <Button
+                        style={styles.button}
+                        onPress={handleVerinteressados}
+                    >
                         {(evaProps) => (
                             <Text style={styles.buttonText}>
                                 VER INTERESSADOS

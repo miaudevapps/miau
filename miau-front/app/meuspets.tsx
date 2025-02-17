@@ -35,7 +35,7 @@ export default function meusPets() {
         <ScrollView>
             <Layout style={styles.mainLayout}>
                 {animals.map((animal, index) =>
-                    petCard(animal.id, animal.name, animal.image)
+                    petCard(animal.id, animal.nome, animal.image_url)
                 )}
             </Layout>
         </ScrollView>

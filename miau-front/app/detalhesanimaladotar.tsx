@@ -36,11 +36,6 @@ export default function DetalhesPetAdotar({ route }: any) {
             .catch((error) => {
                 console.log(error);
             });
-        const chat = await createChat(animal.userId, user.uid, animalID).then(
-            () => {
-                navigation.navigate("Meus Chats");
-            }
-        );
     };
 
     if (loading) {
