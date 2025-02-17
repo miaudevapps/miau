@@ -19,6 +19,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { List } from "react-native-paper";
 import { useState } from "react";
 import React from "react";
+import Constants from "expo-constants";
+import * as Notifications from "expo-notifications";
 
 // Adicione aqui as telas que precisar
 import Home from "@/app/home";
@@ -39,9 +41,19 @@ import { MeusChats } from "./MeusChats";
 import { ListAccordionGroupContext } from "react-native-paper/lib/typescript/components/List/ListAccordionGroup";
 import { Button } from "react-native";
 import { logout } from "@/services/users";
+import { NotificationProvider } from "@/context/notifications";
+import TesteNotis from "./testenotificacao";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+    }),
+});
 
 const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [expanded, setExpanded] = useState<string | null>(null);
@@ -195,6 +207,7 @@ const HomeDrawer: React.FC<{ navigation: any }> = ({ navigation }) => {
         </View>
     );
 };
+
 function usuarioLogadoScreens() {
     return (
         <Drawer.Navigator
@@ -235,111 +248,144 @@ export default function RootLayout() {
 
     return (
         <>
-            <SessionProvider>
-                <SafeAreaProvider>
-                    <StatusBar
-                        barStyle="dark-content"
-                        backgroundColor={"#88c9bf"}
-                    />
-                    <SafeAreaView />
-                    <IconRegistry icons={EvaIconsPack} />
-                    <ApplicationProvider {...eva} theme={eva.light}>
-                        <Stack.Navigator
-                            screenOptions={{
-                                headerStyle: { backgroundColor: "#cfe9e5" },
-                            }}
-                        >
-                            <Stack.Screen
-                                name="Home"
-                                options={{ headerShown: false }}
-                                component={usuarioLogadoScreens}
-                            />
-                            <Stack.Screen
-                                name="Cadastro Pessoal"
-                                component={CadastroPessoal}
-                            />
-                            <Stack.Screen name="Login" component={Login} />
-                            <Stack.Group
-                                screenOptions={{
-                                    headerStyle: { backgroundColor: "#88c9bf" },
-                                }}
-                            >
-                                <Stack.Screen
-                                    name="Cadastro"
-                                    component={Cadastro}
-                                />
-                            </Stack.Group>
-                            <Stack.Group
-                                screenOptions={{
-                                    headerStyle: { backgroundColor: "#ffd358" },
-                                }}
-                            >
-                                <Stack.Screen
-                                    name="Cadastro Animal"
-                                    component={CadastroAnimal}
-                                />
-                            </Stack.Group>
-                            <Stack.Group
-                                screenOptions={{
-                                    headerStyle: { backgroundColor: "#fee29b" },
-                                }}
-                            >
-                                <Stack.Screen
-                                    name="Cadastro Animal Feito"
-                                    component={Cadastroanimalfeito}
-                                />
-                            </Stack.Group>
-                            <Stack.Group
+            <NotificationProvider>
+                <SessionProvider>
+                    <SafeAreaProvider>
+                        <StatusBar
+                            barStyle="dark-content"
+                            backgroundColor={"#88c9bf"}
+                        />
+                        <SafeAreaView />
+                        <IconRegistry icons={EvaIconsPack} />
+                        <ApplicationProvider {...eva} theme={eva.light}>
+                            <Stack.Navigator
                                 screenOptions={{
                                     headerStyle: { backgroundColor: "#cfe9e5" },
                                 }}
                             >
                                 <Stack.Screen
-                                    name="Adotar Animais"
-                                    component={Adotaranimais}
+                                    name="Home"
+                                    options={{ headerShown: false }}
+                                    component={usuarioLogadoScreens}
                                 />
-                            </Stack.Group>
-                            <Stack.Group
-                                screenOptions={{
-                                    headerStyle: { backgroundColor: "#cfe9e5" },
-                                }}
-                            >
                                 <Stack.Screen
-                                    name="Detalhes Pet"
-                                    component={DetalhesPet}
+                                    name="Cadastro Pessoal"
+                                    component={CadastroPessoal}
                                 />
-                            </Stack.Group>
-                            <Stack.Group
-                                screenOptions={{
-                                    headerStyle: { backgroundColor: "#cfe9e5" },
-                                }}
-                            >
-                                <Stack.Screen
-                                    name="Detalhes Pet Adotar"
-                                    component={DetalhesPetAdotar}
-                                />
-                            </Stack.Group>
-                            <Stack.Group
-                                screenOptions={{
-                                    headerStyle: { backgroundColor: "#88c9bf" },
-                                }}
-                            >
-                                <Stack.Screen name="Chat" component={Chat} />
-                            </Stack.Group>
-                            <Stack.Group
-                                screenOptions={{
-                                    headerStyle: { backgroundColor: "#88c9bf" },
-                                }}
-                            >
-                                <Stack.Screen
-                                    name="Meus Chats"
-                                    component={MeusChats}
-                                />
-                            </Stack.Group>
-                        </Stack.Navigator>
-                    </ApplicationProvider>
-                </SafeAreaProvider>
-            </SessionProvider>
+                                <Stack.Screen name="Login" component={Login} />
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Cadastro"
+                                        component={Cadastro}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#ffd358",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Cadastro Animal"
+                                        component={CadastroAnimal}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#fee29b",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Cadastro Animal Feito"
+                                        component={Cadastroanimalfeito}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#cfe9e5",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Adotar Animais"
+                                        component={Adotaranimais}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#cfe9e5",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Detalhes Pet"
+                                        component={DetalhesPet}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#cfe9e5",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Detalhes Pet Adotar"
+                                        component={DetalhesPetAdotar}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Chat"
+                                        component={Chat}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Meus Chats"
+                                        component={MeusChats}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: "#88c9bf",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="TesteNotis"
+                                        component={TesteNotis}
+                                    />
+                                </Stack.Group>
+                            </Stack.Navigator>
+                        </ApplicationProvider>
+                    </SafeAreaProvider>
+                </SessionProvider>
+            </NotificationProvider>
         </>
     );
 }
