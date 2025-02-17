@@ -76,3 +76,11 @@ export const addPushToken = async (userId: string, pushToken: string) => {
         }
     }
 };
+
+export const getUserPushTokens = async (userId: string) => {
+    const user = await getUser(userId);
+    if (user) {
+        return user.pushTokens;
+    }
+    return null;
+};

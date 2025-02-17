@@ -2,6 +2,7 @@ import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
+import { getUserPushTokens } from "./users";
 
 export async function sendPushNotification(expoPushToken: string) {
     const message = {
@@ -21,6 +22,15 @@ export async function sendPushNotification(expoPushToken: string) {
         },
         body: JSON.stringify(message),
     });
+}
+
+export async function sendPushNotificationToUser(userId: string) {
+    const pushTokens = await getUserPushTokens(userId);
+    if (pushTokens) {
+        for (const pushToken of pushTokens) {
+            await sendPushNotification(pushToken);
+        }
+    }
 }
 
 function handleRegistrationError(errorMessage: string) {
