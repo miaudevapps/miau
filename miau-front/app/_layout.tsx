@@ -314,6 +314,18 @@ export default function RootLayout() {
                                 <Stack.Group
                                     screenOptions={{
                                         headerStyle: {
+                                            backgroundColor: "#fee29b",
+                                        },
+                                    }}
+                                >
+                                    <Stack.Screen
+                                        name="Meus Pets"
+                                        component={meusPets}
+                                    />
+                                </Stack.Group>
+                                <Stack.Group
+                                    screenOptions={{
+                                        headerStyle: {
                                             backgroundColor: "#cfe9e5",
                                         },
                                     }}
